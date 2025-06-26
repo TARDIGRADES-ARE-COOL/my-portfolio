@@ -1,0 +1,40 @@
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.project-card {
+  background-color: rgba(30, 41, 59, 0.85);
+  border-radius: 12px;
+  padding: 1rem;
+  color: #f8fafc;
+  backdrop-filter: blur(6px);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  /* ✅ Prevent long words from overflowing */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.project-card a {
+  color: #38bdf8;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-decoration: none;
+
+  /* ✅ Break long link text if needed */
+  word-break: break-word;
+}
+
+.project-card p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  margin-top: 0.5rem;
+}
