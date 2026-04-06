@@ -1,0 +1,107 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", sans-serif;
+  color: #f8fafc;
+  min-height: 100vh;
+  background: url("./bat.png") no-repeat center center fixed;
+  background-size: cover;
+}
+
+/* NAVIGATION */
+nav {
+  background-color: rgba(30, 41, 59, 0.3); /* light overlay */
+  color: #ffffff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: none; /* no blur */
+}
+
+nav h1 {
+  font-size: 1.5rem;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  text-decoration: none;
+  color: #38bdf8;
+  font-weight: 500;
+}
+
+/* SECTIONS */
+section {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: rgba(15, 23, 42, 0.3); /* lighter overlay */
+  border-radius: 10px;
+  backdrop-filter: none; /* no blur */
+}
+
+section h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #38bdf8;
+}
+
+/* FOOTER */
+footer {
+  background-color: rgba(30, 41, 59, 0.3); /* lighter overlay */
+  color: #ffffff;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+  backdrop-filter: none; /* no blur */
+}
+
+/* LINKS */
+a {
+  color: #38bdf8;
+}
+
+nav a:hover,
+a:hover {
+  color: #0ea5e9;
+  transition: color 0.3s ease;
+}
+
+/* LISTS */
+ul {
+  padding-left: 1rem;
+}
+
+/* HERO SECTION */
+.hero {
+  text-align: center;
+  padding: 6rem 1rem 4rem;
+  background-color: rgba(15, 23, 42, 0.3); /* lighter overlay */
+  border-radius: 10px;
+  backdrop-filter: none; /* no blur */
+  margin: 2rem auto;
+  max-width: 800px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #38bdf8;
+}
+
+.hero p {
+  font-size: 1.25rem;
+  opacity: 0.85;
+  margin: 0;
+}
