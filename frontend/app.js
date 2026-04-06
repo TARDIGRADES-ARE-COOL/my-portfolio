@@ -1,4 +1,5 @@
 const roles = ["Embedded Engineer", "AI Builder", "Systems Developer"];
+const API_BASE = window.PORTFOLIO_API_BASE || "";
 let i = 0,
   j = 0,
   del = false;
@@ -48,7 +49,7 @@ async function loadRepos() {
   const lastUpdatedEl = document.getElementById("last-updated");
 
   try {
-    const res = await fetch("/api/repos?sort=updated&per_page=100");
+    const res = await fetch(`${API_BASE}/api/repos?sort=updated&per_page=100`);
     const data = await res.json();
 
     if (!Array.isArray(data)) {

@@ -1,6 +1,7 @@
 const container = document.getElementById("all-repos");
 const searchInput = document.getElementById("project-search");
 const countEl = document.getElementById("project-count");
+const API_BASE = window.PORTFOLIO_API_BASE || "";
 
 let reposCache = [];
 
@@ -51,7 +52,7 @@ function renderRepos(repos) {
 
 async function loadRepos() {
   try {
-    const res = await fetch("/api/repos?sort=updated&per_page=100");
+    const res = await fetch(`${API_BASE}/api/repos?sort=updated&per_page=100`);
     const data = await res.json();
     if (!Array.isArray(data)) throw new Error("Invalid GitHub response");
 

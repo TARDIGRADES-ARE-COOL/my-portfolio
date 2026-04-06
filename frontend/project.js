@@ -1,5 +1,6 @@
 const params = new URLSearchParams(window.location.search);
 const repoName = params.get("repo");
+const API_BASE = window.PORTFOLIO_API_BASE || "";
 
 const nameEl = document.getElementById("project-name");
 const descEl = document.getElementById("project-description");
@@ -40,7 +41,9 @@ async function loadProject() {
   }
 
   try {
-    const repoRes = await fetch(`/api/repos/${encodeURIComponent(repoName)}`);
+    const repoRes = await fetch(
+      `${API_BASE}/api/repos/${encodeURIComponent(repoName)}`,
+    );
     if (!repoRes.ok) throw new Error("Repo not found");
     const repo = await repoRes.json();
 
@@ -65,7 +68,7 @@ async function loadProject() {
     pushedEl.textContent = new Date(repo.pushed_at).toLocaleDateString();
 
     const readmeRes = await fetch(
-      `/api/repos/${encodeURIComponent(repoName)}/readme`,
+      `${API_BASE}/api/repos/${encodeURIComponent(repoName)}/readme`,
     );
 
     if (!readmeRes.ok) {

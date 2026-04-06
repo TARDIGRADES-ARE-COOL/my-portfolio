@@ -4,6 +4,7 @@ const chatEl = document.getElementById("chatbot");
 const toggleBtn = document.getElementById("chat-toggle");
 const closeBtn = document.getElementById("chat-close");
 const sendBtn = document.getElementById("chat-send");
+const API_BASE = window.PORTFOLIO_API_BASE || "";
 
 toggleBtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -26,7 +27,7 @@ function appendMsg(text, sender) {
 }
 
 async function sendMessage(msg) {
-  const res = await fetch("/chat", {
+  const res = await fetch(`${API_BASE}/chat`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ message: msg }),
