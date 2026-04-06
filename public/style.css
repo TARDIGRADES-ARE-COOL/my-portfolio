@@ -17,6 +17,15 @@
   --mono: "JetBrains Mono", monospace;
   --sans: "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
   --radius: 20px;
+  --site-max: 980px;
+  --site-gutter: 24px;
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --site-max: 1180px;
+    --site-gutter: 48px;
+  }
 }
 
 html {
@@ -25,11 +34,78 @@ html {
 
 body {
   font-family: var(--sans);
-  background: radial-gradient(circle at 20% 10%, #1b1730, transparent 40%),
+  background: radial-gradient(ellipse 42% 70% at 0% 45%, rgba(123, 92, 255, 0.14), transparent 58%),
+    radial-gradient(ellipse 38% 65% at 100% 38%, rgba(74, 212, 255, 0.1), transparent 52%),
+    radial-gradient(circle at 20% 10%, #1b1730, transparent 40%),
     radial-gradient(circle at 90% 5%, #171d35, transparent 35%), var(--bg);
   color: var(--ink);
   line-height: 1.5;
   overflow-x: hidden;
+}
+
+/* Decorative rails on very wide viewports — fills “empty” side margins */
+.side-rails {
+  display: none;
+}
+
+@media (min-width: 1100px) {
+  .side-rails {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  .side-rail {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+  }
+
+  .side-rail--left {
+    left: max(16px, calc((100vw - min(var(--site-max), calc(100% - var(--site-gutter)))) / 2 - 56px));
+  }
+
+  .side-rail--right {
+    right: max(16px, calc((100vw - min(var(--site-max), calc(100% - var(--site-gutter)))) / 2 - 56px));
+  }
+
+  .side-rail__line {
+    flex: 1;
+    max-height: min(42vh, 320px);
+    width: 1px;
+    background: linear-gradient(
+      180deg,
+      transparent,
+      rgba(184, 174, 233, 0.35) 18%,
+      rgba(123, 92, 255, 0.45) 50%,
+      rgba(184, 174, 233, 0.28) 82%,
+      transparent
+    );
+  }
+
+  .side-rail__text {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(164, 159, 187, 0.42);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    white-space: nowrap;
+  }
+
+  .side-rail--right .side-rail__text {
+    writing-mode: vertical-lr;
+  }
 }
 
 .scroll-progress {
@@ -72,7 +148,7 @@ body {
   top: 24px;
   left: 50%;
   transform: translateX(-50%);
-  width: min(980px, calc(100% - 24px));
+  width: min(var(--site-max), calc(100% - var(--site-gutter)));
   z-index: 50;
   display: flex;
   justify-content: space-between;
@@ -120,7 +196,7 @@ body {
 .site {
   position: relative;
   z-index: 10;
-  width: min(980px, calc(100% - 24px));
+  width: min(var(--site-max), calc(100% - var(--site-gutter)));
   margin: 110px auto 60px;
   display: grid;
   gap: 18px;
