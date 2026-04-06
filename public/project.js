@@ -1,6 +1,8 @@
 const params = new URLSearchParams(window.location.search);
 const repoName = params.get("repo");
-const API_BASE = window.PORTFOLIO_API_BASE || "";
+const USERNAME = "TARDIGRADES-ARE-COOL";
+const API_BASE = (window.PORTFOLIO_API_BASE || "").trim();
+const USE_BACKEND = Boolean(API_BASE);
 
 const nameEl = document.getElementById("project-name");
 const descEl = document.getElementById("project-description");
@@ -41,9 +43,10 @@ async function loadProject() {
   }
 
   try {
-    const repoRes = await fetch(
-      `${API_BASE}/api/repos/${encodeURIComponent(repoName)}`,
-    );
+    const repoUrl = USE_BACKEND
+      ? `${API_BASE}/api/repos/${encodeURIComponent(repoName)}`
+      : `https://api.github.com/repos/${USERNAME}/${encodeURIComponent(repoName)}`;
+    const repoRes = await fetch(repoUrl);
     if (!repoRes.ok) throw new Error("Repo not found");
     const repo = await repoRes.json();
 
@@ -67,18 +70,38 @@ async function loadProject() {
     issuesEl.textContent = String(repo.open_issues_count || 0);
     pushedEl.textContent = new Date(repo.pushed_at).toLocaleDateString();
 
-    const readmeRes = await fetch(
-      `${API_BASE}/api/repos/${encodeURIComponent(repoName)}/readme`,
-    );
+    const readmeUrl = USE_BACKEND
+      ? `${API_BASE}/api/repos/${encodeURIComponent(repoName)}/readme`
+      : `https://api.github.com/repos/${USERNAME}/${encodeURIComponent(repoName)}/readme`;
+    const readmeRes = await fetch(readmeUrl);
 
-    if (!readmeRes.ok) {
-      readmeEl.textContent = "No README found for this repository.";
+    if (readmeRes.ok) {
+      const readmeData = await readmeRes.json();
+      const decoded = decodeBase64Unicode(readmeData.content || "");
+      readmeEl.textContent = decoded.slice(0, 5000) || "README is empty.";
       return;
     }
 
-    const readmeData = await readmeRes.json();
-    const decoded = decodeBase64Unicode(readmeData.content || "");
-    readmeEl.textContent = decoded.slice(0, 5000) || "README is empty.";
+    // Final fallback for static hosting: fetch raw README from GitHub.
+    const rawCandidates = [
+      `https://raw.githubusercontent.com/${USERNAME}/${encodeURIComponent(repoName)}/main/README.md`,
+      `https://raw.githubusercontent.com/${USERNAME}/${encodeURIComponent(repoName)}/master/README.md`,
+    ];
+
+    for (const rawUrl of rawCandidates) {
+      try {
+        const rawRes = await fetch(rawUrl);
+        if (rawRes.ok) {
+          const text = await rawRes.text();
+          readmeEl.textContent = text.slice(0, 5000) || "README is empty.";
+          return;
+        }
+      } catch {
+        // try next candidate
+      }
+    }
+
+    readmeEl.textContent = "No README found for this repository.";
   } catch {
     setFallback("Could not load this repository from GitHub.");
   }

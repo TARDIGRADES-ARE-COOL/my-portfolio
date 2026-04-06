@@ -1,5 +1,7 @@
 const roles = ["Embedded Engineer", "AI Builder", "Systems Developer"];
-const API_BASE = window.PORTFOLIO_API_BASE || "";
+const USERNAME = "TARDIGRADES-ARE-COOL";
+const API_BASE = (window.PORTFOLIO_API_BASE || "").trim();
+const USE_BACKEND = Boolean(API_BASE);
 let i = 0,
   j = 0,
   del = false;
@@ -49,7 +51,10 @@ async function loadRepos() {
   const lastUpdatedEl = document.getElementById("last-updated");
 
   try {
-    const res = await fetch(`${API_BASE}/api/repos?sort=updated&per_page=100`);
+    const url = USE_BACKEND
+      ? `${API_BASE}/api/repos?sort=updated&per_page=100`
+      : `https://api.github.com/users/${USERNAME}/repos?sort=updated&per_page=100`;
+    const res = await fetch(url);
     const data = await res.json();
 
     if (!Array.isArray(data)) {
