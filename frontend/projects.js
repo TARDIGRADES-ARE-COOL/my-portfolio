@@ -4,6 +4,15 @@ const countEl = document.getElementById("project-count");
 const USERNAME = "TARDIGRADES-ARE-COOL";
 const API_BASE = (window.PORTFOLIO_API_BASE || "").trim();
 const USE_BACKEND = Boolean(API_BASE);
+const fallbackRepos = [
+  { name: "DSA-More", description: "Exploring leetcode algorithms questions and more", language: "Python", stargazers_count: 0 },
+  { name: "Machine-Learning-Exploration", description: "Machine learning experiments and model studies", language: "Python", stargazers_count: 0 },
+  { name: "Facial-Expression-Detection", description: "Expression classification and computer vision experimentation", language: "Python", stargazers_count: 0 },
+  { name: "ASCENDA-Hotel-Booking-Website", description: "Hotel-booking web app built with React and Node.js/Express", language: "JavaScript", stargazers_count: 0 },
+  { name: "DHKE", description: "Coursework repository focused on systems/security tasks", language: "Jupyter Notebook", stargazers_count: 0 },
+  { name: "unix_shell", description: "Unix-like custom shell built in C", language: "C", stargazers_count: 0 },
+  { name: "FPGA_GAME", description: "Hardware-focused game implementation on FPGA", language: "C++", stargazers_count: 0 },
+];
 
 let reposCache = [];
 
@@ -64,9 +73,8 @@ async function loadRepos() {
     reposCache = data;
     renderRepos(reposCache);
   } catch {
-    container.innerHTML =
-      '<p style="color:var(--muted)">Unable to load GitHub projects right now.</p>';
-    countEl.textContent = "Unavailable";
+    reposCache = fallbackRepos;
+    renderRepos(reposCache);
   }
 }
 
