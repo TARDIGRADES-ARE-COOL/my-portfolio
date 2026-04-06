@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Projects - SJG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="project-page">
+    <nav class="top-nav">
+      <a href="index.html" class="brand">SJG</a>
+      <div class="top-links">
+        <a href="index.html#about">About</a>
+        <a href="index.html#projects">Featured</a>
+        <a href="projects.html">All Projects</a>
+      </div>
+    </nav>
+
+    <main class="site page-wrap">
+      <section class="panel">
+        <div class="panel-head">
+          <p>All GitHub Projects</p>
+          <span id="project-count">Loading...</span>
+        </div>
+        <div class="filter-row">
+          <input
+            id="project-search"
+            type="search"
+            placeholder="Search by name, language, or description"
+          />
+        </div>
+        <div id="all-repos" class="repos-grid"></div>
+      </section>
+    </main>
+
+    <script src="site-config.js"></script>
+    <script src="projects.js"></script>
+  </body>
+</html>

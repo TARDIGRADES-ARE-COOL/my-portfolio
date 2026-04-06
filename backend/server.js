@@ -24,9 +24,16 @@ app.use((req, _res, next) => {
   next();
 });
 
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+const LLM_PROVIDER = (process.env.LLM_PROVIDER || "openai").toLowerCase();
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+
+let openaiClient = null;
+if (OPENAI_API_KEY) {
+  openaiClient = new OpenAI({
+    apiKey: OPENAI_API_KEY,
+  });
+}
 
 const GITHUB_USER = "TARDIGRADES-ARE-COOL";
 const githubHeaders = {
@@ -144,13 +151,7 @@ app.post("/chat", async (req, res) => {
   const { message } = req.body;
 
   try {
-    const completion = await client.chat.completions.create({
-      model: "gpt-4o-mini",
-      temperature: 0.4,
-      messages: [
-        {
-          role: "system",
-          content: `You are Sarvesh Joaquim Gopu's portfolio assistant.
+    const systemPrompt = `You are Sarvesh Joaquim Gopu's portfolio assistant.
 
 Your job:
 - Answer questions about Sarvesh's profile, skills, projects, education, and experience.
@@ -172,13 +173,75 @@ Style rules:
 - Do not claim fake certifications, jobs, or achievements.
 - If uncertain, say you don't have that detail and suggest contacting Sarvesh via LinkedIn/email.
 - Never present yourself as a finance/investing advisor.
-- Be helpful, warm, and specific.`,
+- Be helpful, warm, and specific.`;
+
+    if (LLM_PROVIDER === "gemini") {
+      if (!GEMINI_API_KEY) {
+        return res.status(400).json({
+          error: "GEMINI_API_KEY is missing in backend/.env",
+          code: "missing_gemini_api_key",
+        });
+      }
+
+      const geminiRes = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(
+          GEMINI_API_KEY,
+        )}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            generationConfig: {
+              temperature: 0.4,
+            },
+            contents: [
+              {
+                role: "user",
+                parts: [{ text: `${systemPrompt}\n\nUser question: ${message}` }],
+              },
+            ],
+          }),
+        },
+      );
+
+      const geminiData = await geminiRes.json();
+      if (!geminiRes.ok) {
+        const geminiMsg = geminiData?.error?.message || "Gemini request failed";
+        return res.status(geminiRes.status).json({
+          error: geminiMsg,
+          code: "gemini_error",
+        });
+      }
+
+      const reply =
+        geminiData?.candidates?.[0]?.content?.parts
+          ?.map((p) => p?.text || "")
+          .join("")
+          .trim() || "I could not generate a response right now.";
+
+      return res.json({ reply });
+    }
+
+    if (!openaiClient) {
+      return res.status(400).json({
+        error: "OPENAI_API_KEY is missing in backend/.env",
+        code: "missing_openai_api_key",
+      });
+    }
+
+    const completion = await openaiClient.chat.completions.create({
+      model: "gpt-4o-mini",
+      temperature: 0.4,
+      messages: [
+        {
+          role: "system",
+          content: systemPrompt,
         },
         { role: "user", content: message },
       ],
     });
 
-    res.json({ reply: completion.choices[0].message.content });
+    return res.json({ reply: completion.choices[0].message.content });
   } catch (err) {
     const status = err?.status || 500;
     const code = err?.code || "unknown_error";
@@ -194,7 +257,7 @@ Style rules:
       code,
       message: err?.message,
     });
-    res.status(status).json({ error: message, code });
+    return res.status(status).json({ error: message, code });
   }
 });
 

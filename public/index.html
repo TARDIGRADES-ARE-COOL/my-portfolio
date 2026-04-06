@@ -1,43 +1,335 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SJG - Systems Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
     />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>Joaquim's Portfolio</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    <div id="three-canvas"></div>
+    <div class="noise"></div>
+    <div class="scroll-progress">
+      <span id="scroll-progress-bar"></span>
+    </div>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+    <nav class="top-nav">
+      <a href="#" class="brand">SJG</a>
+      <div class="top-links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#work">Work</a>
+        <a href="#education">Education</a>
+        <a href="#tech">Tech Stack</a>
+        <a href="projects.html">All Projects</a>
+        <a href="#" id="chat-toggle" class="chat-pill">Ask AI</a>
+      </div>
+    </nav>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    <main class="site">
+      <section class="hero-panel reveal" id="about">
+        <p class="eyebrow">PORTFOLIO / SYSTEMS + AI + EMBEDDED</p>
+        <h1>
+          Sarvesh<br />
+          Joaquim Gopu
+        </h1>
+        <p class="lead">
+          Embedded Systems and AI Engineer-in-Training focused on building
+          reliable firmware and intelligent products across embedded, security,
+          and full-stack systems.
+        </p>
+        <div class="contact-row">
+          <a href="mailto:joaquimgopu3@gmail.com">joaquimgopu3@gmail.com</a>
+          <a href="https://linkedin.com/in/sarveshjoaquimgopu" target="_blank" rel="noopener">
+            linkedin.com/in/sarveshjoaquimgopu
+          </a>
+        </div>
+        <div class="typing-line">
+          <span class="typing-prefix">active role:</span>
+          <span id="typing"></span>
+        </div>
+        <div class="hero-cta">
+          <a href="#projects" class="btn-main">Explore Work</a>
+          <a href="#work" class="btn-subtle">Work Experience</a>
+        </div>
+      </section>
+
+      <section class="panel reveal">
+        <div class="panel-head">
+          <p>About Me</p>
+          <span>Builder mindset</span>
+        </div>
+        <div class="about-grid">
+          <article class="about-card">
+            <h3>Engineer Profile</h3>
+            <p>
+              Computer Science and Design undergraduate at SUTD with focus areas
+              in AI, Cybersecurity, and IoT systems.
+            </p>
+          </article>
+          <article class="about-card">
+            <h3>Industry Experience</h3>
+            <p>
+              Completed a firmware and testing internship at WS Audiology,
+              contributing to safety-critical development and validation using
+              C++, Python, and Azure DevOps.
+            </p>
+          </article>
+          <article class="about-card">
+            <h3>Core Strength</h3>
+            <p>
+              Recognized as a collaborative, end-to-end project driver bridging
+              embedded systems, AI, and security for practical impact.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="showcase" class="panel reveal showcase-section">
+        <div class="panel-head">
+          <p>How I Build Products</p>
+          <span>Scroll to explore</span>
+        </div>
+        <div class="showcase-layout">
+          <aside class="showcase-sticky theme-foundation" id="showcase-visual">
+            <div class="showcase-glow"></div>
+            <p class="dash-k">ENGINEERING PROCESS</p>
+            <h3 id="showcase-title">System Thinking First</h3>
+            <p id="showcase-copy">
+              I begin by mapping constraints and designing a reliable technical
+              foundation before implementation.
+            </p>
+          </aside>
+          <div class="showcase-steps">
+            <article
+              class="showcase-step is-active"
+              data-title="System Thinking First"
+              data-copy="I begin by mapping constraints and designing a reliable technical foundation before implementation."
+              data-theme="theme-foundation"
+            >
+              <span>01</span>
+              <h4>Define architecture</h4>
+              <p>Understand constraints, risk, and reliability needs.</p>
+            </article>
+            <article
+              class="showcase-step"
+              data-title="Build Fast, Verify Early"
+              data-copy="I prototype quickly, test hard, and validate real behavior to avoid fragile systems."
+              data-theme="theme-iterate"
+            >
+              <span>02</span>
+              <h4>Prototype and validate</h4>
+              <p>Ship fast iterations with measurable checks.</p>
+            </article>
+            <article
+              class="showcase-step"
+              data-title="Polish With Intent"
+              data-copy="Performance, maintainability, and user clarity are refined once core behavior is stable."
+              data-theme="theme-polish"
+            >
+              <span>03</span>
+              <h4>Refine experience</h4>
+              <p>Improve UX, speed, and readability without overbuilding.</p>
+            </article>
+            <article
+              class="showcase-step"
+              data-title="Deliver Business Impact"
+              data-copy="Final output is production-minded: clear value, solid engineering, and practical outcomes."
+              data-theme="theme-impact"
+            >
+              <span>04</span>
+              <h4>Deliver outcomes</h4>
+              <p>Focus on useful, future-proof, and maintainable results.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects" class="panel reveal">
+        <div class="panel-head">
+          <p>Selected Projects</p>
+          <a href="projects.html">Browse full library &rarr;</a>
+        </div>
+        <div id="repos" class="repos-grid"></div>
+      </section>
+
+      <section id="work" class="panel reveal">
+        <div class="panel-head">
+          <p>Work Experience</p>
+          <span>Engineering journey</span>
+        </div>
+        <div class="logo-strip">
+          <div class="logo-pill">
+            <img src="assets/logos/wsa.svg" alt="WS Audiology logo" />
+            <span>WS Audiology</span>
+          </div>
+          <div class="logo-pill">
+            <img src="assets/logos/ascenda.svg" alt="Ascenda logo" />
+            <span>Ascenda</span>
+          </div>
+          <div class="logo-pill">
+            <img src="assets/logos/turck-banner.svg" alt="Turck Banner logo" />
+            <span>Turck Banner</span>
+          </div>
+        </div>
+        <div class="experience-list">
+          <article class="experience-item">
+            <div class="experience-top">
+              <img
+                class="company-logo"
+                src="assets/logos/wsa.svg"
+                alt="WS Audiology logo"
+              />
+              <div class="experience-meta">
+              <span>Sep 2025 - Jan 2026</span>
+              <span>WS Audiology</span>
+              </div>
+            </div>
+            <h3>Firmware Developer / Testing Intern</h3>
+            <p>
+              Improved charger battery performance and reliability on the F1
+              charger platform through embedded firmware development.
+              Strengthened hardware-software validation via testing, debugging,
+              and automation with C++ and Python.
+            </p>
+          </article>
+          <article class="experience-item">
+            <div class="experience-top">
+              <img
+                class="company-logo"
+                src="assets/logos/ascenda.svg"
+                alt="Ascenda logo"
+              />
+              <div class="experience-meta">
+              <span>May 2025 - Aug 2025</span>
+              <span>Ascenda</span>
+              </div>
+            </div>
+            <h3>Hotel-Booking WebApp Development</h3>
+            <p>
+              Built a hotel-booking web application with React frontend and
+              Node.js/Express backend, with JavaScript, HTML/CSS, and SQL.
+            </p>
+          </article>
+          <article class="experience-item">
+            <div class="experience-top">
+              <img
+                class="company-logo"
+                src="assets/logos/turck-banner.svg"
+                alt="Turck Banner logo"
+              />
+              <div class="experience-meta">
+              <span>Apr 2020 - Sep 2020</span>
+              <span>Turck Banner</span>
+              </div>
+            </div>
+            <h3>Engineering Intern</h3>
+            <p>
+              Debugged hardware-related code for sensors (infrared, proximity,
+              temperature, pressure), tested five products for functionality, and
+              helped set up client-facing product demonstrations.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="education" class="panel reveal">
+        <div class="panel-head">
+          <p>Education</p>
+          <span>Academic foundation</span>
+        </div>
+        <div class="experience-list">
+          <article class="experience-item">
+            <div class="experience-meta">
+              <span>2023 - 2027</span>
+              <span>SUTD</span>
+            </div>
+            <h3>Bachelor of Engineering, Computer Science and Design</h3>
+            <p>KKH - SUTD Scholarship recipient.</p>
+          </article>
+          <article class="experience-item">
+            <div class="experience-meta">
+              <span>Diploma</span>
+              <span>Ngee Ann Polytechnic</span>
+            </div>
+            <h3>Automation and Mechatronics Systems Engineering</h3>
+            <p>Minor in Business.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="tech" class="panel reveal">
+        <div class="panel-head">
+          <p>Tech Stack</p>
+          <span>Tools I use most</span>
+        </div>
+        <div class="stack-columns">
+          <article class="stack-card">
+            <h3>Programming</h3>
+            <div class="chip-row">
+              <span class="chip">Machine Learning</span>
+              <span class="chip">JavaScript</span>
+              <span class="chip">Python</span>
+              <span class="chip">C / C++</span>
+              <span class="chip">Java</span>
+              <span class="chip">SQL</span>
+              <span class="chip">HTML / CSS</span>
+            </div>
+          </article>
+          <article class="stack-card">
+            <h3>Frameworks & Libraries</h3>
+            <div class="chip-row">
+              <span class="chip">Node.js</span>
+              <span class="chip">Express</span>
+              <span class="chip">React.js</span>
+              <span class="chip">TensorFlow</span>
+              <span class="chip">NumPy</span>
+              <span class="chip">Pandas</span>
+              <span class="chip">Pytest</span>
+            </div>
+          </article>
+          <article class="stack-card">
+            <h3>Embedded, Tools & Workflow</h3>
+            <div class="chip-row">
+              <span class="chip">FPGA Programming</span>
+              <span class="chip">Microcontroller Programming</span>
+              <span class="chip">Electronics & Circuits</span>
+              <span class="chip">Agile / Waterfall</span>
+              <span class="chip">Git & GitHub</span>
+              <span class="chip">Azure DevOps</span>
+              <span class="chip">J-Link</span>
+              <span class="chip">Linux / Unix</span>
+              <span class="chip">Rhino</span>
+              <span class="chip">Fusion 360</span>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <div id="chatbot" class="chatbot-hidden">
+      <div class="chat-header">
+        <span>AI Assistant</span>
+        <button id="chat-close">&times;</button>
+      </div>
+      <div id="chat-log"></div>
+      <div class="chat-input-wrap">
+        <input id="chat-input" placeholder="Ask about my work..." autocomplete="off" />
+        <button id="chat-send">&#10148;</button>
+      </div>
+    </div>
+
+    <script src="site-config.js"></script>
+    <script src="app.js"></script>
+    <script src="effects.js"></script>
+    <script type="module" src="chatbot.js"></script>
+    <script type="module" src="three.js"></script>
   </body>
 </html>

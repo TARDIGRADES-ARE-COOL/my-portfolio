@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Details - SJG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="project-page">
+    <nav class="top-nav">
+      <a href="index.html" class="brand">SJG</a>
+      <div class="top-links">
+        <a href="index.html">Home</a>
+        <a href="projects.html">All Projects</a>
+      </div>
+    </nav>
+
+    <main class="site page-wrap">
+      <section class="panel">
+        <a href="projects.html" class="back-link">&larr; Back to all projects</a>
+        <div class="project-header">
+          <p class="eyebrow" id="project-language">Loading...</p>
+          <h1 id="project-name">Project</h1>
+          <p class="lead" id="project-description">Fetching repository details...</p>
+          <div class="project-links">
+            <a id="repo-url" class="btn-main" target="_blank" rel="noopener">Open GitHub</a>
+            <a id="repo-homepage" class="btn-subtle" target="_blank" rel="noopener">Live Demo</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <p>Project Metrics</p>
+          <span>Live from GitHub</span>
+        </div>
+        <div class="snapshot-grid">
+          <article class="dash-card">
+            <p class="dash-k">STARS</p>
+            <p class="dash-v" id="metric-stars">--</p>
+          </article>
+          <article class="dash-card">
+            <p class="dash-k">FORKS</p>
+            <p class="dash-v" id="metric-forks">--</p>
+          </article>
+          <article class="dash-card">
+            <p class="dash-k">OPEN ISSUES</p>
+            <p class="dash-v" id="metric-issues">--</p>
+          </article>
+          <article class="dash-card">
+            <p class="dash-k">LAST PUSH</p>
+            <p class="dash-v" id="metric-pushed">--</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <p>README Overview</p>
+          <span>Auto-fetched from repository</span>
+        </div>
+        <pre id="readme-content" class="readme-pre">Loading README...</pre>
+      </section>
+    </main>
+
+    <script src="site-config.js"></script>
+    <script src="project.js"></script>
+  </body>
+</html>
