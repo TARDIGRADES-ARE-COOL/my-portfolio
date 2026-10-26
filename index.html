@@ -1,15 +1,499 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Redirecting...</title>
-    <meta http-equiv="refresh" content="0; url=frontend/index.html" />
-    <script>
-      window.location.replace("frontend/index.html");
-    </script>
-  </head>
-  <body>
-    <p>Redirecting to portfolio...</p>
-  </body>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sarvesh Joaquim Gopu</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Jo Gopu, an engineer and computer science student in Singapore working across hardware, software and AI.">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+/* Layout: a drafting sheet. Paper ground, serif headlines, mono labels, one blueprint-blue accent; 12-col grid on a 1200px measure. */
+:root{
+  --paper:#f3f1ec; --panel:#faf9f6; --ink:#1b1a18; --muted:#5e5b55; --line:#d9d5cc; --grid:#e6e2da;
+  --accent:#1f4c9e; --accent-soft:#e3e9f4; --btn:#1b1a18; --btn-ink:#f3f1ec;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --sans:"Instrument Sans","Helvetica Neue",Arial,system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --ease:cubic-bezier(.23,1,.32,1);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#141413; --panel:#1b1b19; --ink:#ecebe6; --muted:#a29f98; --line:#33322e; --grid:#22211f;
+  --accent:#86a8ea; --accent-soft:#1e2738; --btn:#ecebe6; --btn-ink:#141413; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#141413; --panel:#1b1b19; --ink:#ecebe6; --muted:#a29f98; --line:#33322e; --grid:#22211f;
+  --accent:#86a8ea; --accent-soft:#1e2738; --btn:#ecebe6; --btn-ink:#141413; color-scheme:dark}
+*{box-sizing:border-box}
+html{background:var(--paper)}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1.0625rem/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+h1,h2,h3,p{margin:0}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.page{max-width:1264px;margin:0 auto;padding-left:max(32px,env(safe-area-inset-left,0px));padding-right:max(32px,env(safe-area-inset-right,0px))}
+@media (max-width:640px){.page{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}}
+.mono{font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--paper);z-index:21}
+.nav .page{display:flex;align-items:center;justify-content:space-between;gap:16px;height:72px}
+.mark{display:inline-grid;place-items:center;width:34px;height:34px;background:var(--accent);color:var(--paper);font:500 .875rem/1 var(--mono);letter-spacing:.02em;text-decoration:none;border-radius:4px}
+.nav ul{display:flex;align-items:center;gap:26px;list-style:none;margin:0;padding:0}
+.nav ul a{font:400 .8125rem/1 var(--mono);color:var(--muted);text-decoration:none;padding-block:6px;transition:color 200ms ease}
+.nav ul a:hover,.nav ul a.on{color:var(--ink)}
+.nav ul{position:relative}
+.nav .ind{position:absolute;left:0;bottom:-4px;height:1.5px;width:var(--iw,0px);background:var(--accent);transform:translateX(var(--ix,0px));opacity:var(--io,0);transition:transform 400ms var(--ease),width 400ms var(--ease),opacity 300ms ease;pointer-events:none}
+.theme{all:unset;display:grid;place-items:center;width:36px;height:36px;border:1px solid var(--line);border-radius:6px;cursor:pointer;color:var(--ink);transition:transform 160ms var(--ease)}
+.theme:active{transform:scale(.95)}
+.theme:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.theme svg{width:16px;height:16px}
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+::view-transition-new(root){z-index:2}
+@media (max-width:760px){.nav ul li:not(.keep){display:none}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:48px;align-items:center;padding-block:40px 72px}
+.kicker{color:var(--muted)}
+.hero h1{margin-top:22px;font:400 clamp(2.75rem,1.4rem + 4.2vw,4.75rem)/1.02 var(--serif);letter-spacing:-.025em;text-wrap:balance}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero .sub{margin-top:24px;font-size:1.1875rem;color:var(--muted);max-width:34ch}
+.hero .status{margin-top:18px;font:400 .875rem/1.5 var(--mono);color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;list-style:none;padding:0}
+.chips li{border:1px solid var(--line);background:var(--panel);padding:6px 10px;color:var(--muted)}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 20px;border:1px solid var(--btn);background:var(--btn);color:var(--btn-ink);text-decoration:none;transition:transform 160ms var(--ease),background-color 200ms ease,color 200ms ease}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.arr{display:inline-block;transition:transform 220ms var(--ease)}
+@media (hover:hover) and (pointer:fine){.btn:hover .arr,.proj a:hover .arr{transform:translateX(4px)}}
+.btn:active{transform:scale(.97)}
+@media (hover:hover) and (pointer:fine){.btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}.btn.ghost:hover{background:var(--panel);border-color:var(--ink);color:var(--ink)}}
+
+/* figure: the stack, as a drawing sheet */
+.fig{border:1px solid var(--line);background:var(--panel);display:grid;grid-template-rows:1fr auto}
+.sheet{position:relative;padding:28px 28px 20px;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px;background-position:-1px -1px}
+.sheet-head{display:flex;justify-content:space-between;color:var(--muted);margin-bottom:18px}
+.layers{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.layers{position:relative}
+.layers li{position:relative;z-index:1}
+.layers .hl{position:absolute;z-index:0;left:0;right:0;top:0;height:var(--h,44px);background:var(--accent-soft);border:1px solid var(--accent);transform:translateY(var(--y,0px));transition:transform 420ms var(--ease),height 420ms var(--ease);pointer-events:none}
+.layer{all:unset;box-sizing:border-box;display:flex;justify-content:space-between;align-items:baseline;gap:12px;width:100%;padding:11px 14px;background:color-mix(in srgb,var(--panel) 72%,transparent);border:1px solid var(--line);cursor:pointer;transition:background-color 200ms ease,border-color 200ms ease}
+.layer .ln{font:500 .9375rem/1.2 var(--sans)}
+.layer .lw{font:400 .75rem/1.2 var(--mono);color:var(--muted);text-align:right}
+.layer[aria-pressed="true"]{background:transparent;border-color:transparent}
+.js .layers:not(.ready) .layer[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent)}
+.layer .lw{transition:color 300ms ease}
+.layer[aria-pressed="true"] .lw{color:var(--accent)}
+.tb-title,.tb-say{transition:opacity 180ms ease,transform 180ms ease}
+.swap .tb-title,.swap .tb-say{opacity:0;transform:translateY(4px)}
+.layer:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (hover:hover) and (pointer:fine){.layer:hover{border-color:var(--ink)}}
+.axis{display:flex;justify-content:space-between;margin-top:12px;color:var(--muted)}
+.tblock{display:grid;grid-template-columns:auto minmax(0,1fr);border-top:1px solid var(--line)}
+.tblock>div{padding:14px 16px}
+.tblock>div+div{border-left:1px solid var(--line)}
+.portrait{width:60px;height:72px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);font:400 1.5rem/1 var(--serif)}
+.tb-title{color:var(--ink)}
+.tb-say{margin-top:6px;font-size:.9375rem;color:var(--muted);min-height:3em}
+
+/* org strip */
+.orgs{border-block:1px solid var(--line)}
+.marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.track{display:flex;width:max-content}
+.orgs ul{display:flex;gap:56px;list-style:none;margin:0;padding:22px 28px;white-space:nowrap}
+@media (prefers-reduced-motion:no-preference){.track{animation:marq 38s linear infinite}.marquee:hover .track{animation-play-state:paused}}
+@media (prefers-reduced-motion:reduce){.marquee{-webkit-mask-image:none;mask-image:none}.track{width:auto;justify-content:center}.orgs ul{flex-wrap:wrap;justify-content:center;gap:12px 40px}.orgs .dup{display:none}}
+@keyframes marq{to{transform:translateX(-50%)}}
+.orgs li{color:var(--muted)}
+
+/* sections */
+.sec{padding-block:112px 0}
+.label{color:var(--accent)}
+.sl::before{content:"";display:inline-block;vertical-align:middle;width:28px;height:1px;margin-right:12px;background:currentColor;transform-origin:left}
+.sec h2{margin-top:14px;font:400 clamp(2rem,1.4rem + 2vw,3rem)/1.08 var(--serif);letter-spacing:-.02em;max-width:22ch;text-wrap:balance}
+.lead{margin-top:20px;max-width:58ch;color:var(--muted);font-size:1.125rem}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;align-items:start}
+.about-body p{font-size:1.1875rem;line-height:1.65}
+.about-body p+p{margin-top:18px}
+.facts{margin-top:28px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line);background:var(--panel)}
+.facts div{padding:16px}
+.facts div+div{border-left:1px solid var(--line)}
+.facts strong{display:block;font:400 1.75rem/1.1 var(--serif)}
+.facts span{display:block;margin-top:6px;color:var(--muted)}
+
+/* experience cards */
+.jobs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:44px;list-style:none;padding:0}
+.job{border:1px solid var(--line);background:var(--panel);padding:26px 26px 22px;display:flex;flex-direction:column;transition:border-color 200ms ease,transform 260ms var(--ease)}
+@media (hover:hover) and (pointer:fine){.job:hover{border-color:var(--ink);transform:translateY(-2px)}}
+.job.wide{grid-column:1/-1}
+.job-top{display:flex;justify-content:space-between;gap:16px;align-items:baseline}
+.job h3{font:400 1.625rem/1.15 var(--serif);letter-spacing:-.01em}
+.job .when{color:var(--muted);white-space:nowrap}
+.job .role{margin-top:8px;color:var(--accent)}
+.job .role span{color:var(--muted)}
+.job p.what{margin-top:14px;color:var(--ink);max-width:68ch}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:20px;list-style:none;padding-left:0}
+.tags li{background:var(--paper);border:1px solid var(--line);padding:4px 8px;color:var(--muted);font-size:.6875rem}
+
+/* projects */
+.projects{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:18px;list-style:none;padding:0}
+.group{margin-top:48px;color:var(--muted);font-weight:400}
+.proj{border:1px solid var(--line);background:var(--panel);padding:24px;display:flex;flex-direction:column}
+.proj h3{margin-top:10px;font:400 1.375rem/1.2 var(--serif)}
+.proj p{margin-top:10px;color:var(--muted)}
+.proj a{margin-top:18px;align-self:flex-start;font:400 .8125rem/1 var(--mono);color:var(--ink)}
+
+/* education */
+.edu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:44px}
+.edu>div{border-top:1px solid var(--ink);padding-top:18px}
+.edu h3{color:var(--muted);margin-bottom:12px}
+.edu p{font:400 1.25rem/1.35 var(--serif)}
+.edu p+p{margin-top:16px}
+.edu .q{display:block;margin-top:4px;font:400 .9375rem/1.5 var(--sans);color:var(--muted)}
+
+/* contact */
+.contact{padding-block:128px 40px}
+.contact h2{margin-top:14px;font:400 clamp(2.5rem,1.5rem + 4vw,5rem)/1.05 var(--serif);letter-spacing:-.025em}
+.contact h2 em{font-style:italic;color:var(--accent)}
+.mail{display:inline-block;margin-top:24px;font:400 clamp(1.375rem,1rem + 1.6vw,2.25rem)/1.2 var(--serif);text-decoration-thickness:1px;text-underline-offset:.18em;overflow-wrap:anywhere}
+.contact-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-block:28px 32px;margin-top:96px;border-top:1px solid var(--line);color:var(--muted)}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;gap:40px;padding-top:16px}
+  .about-grid{grid-template-columns:1fr;gap:24px}
+  .jobs,.projects,.edu{grid-template-columns:1fr}
+  .sec{padding-block:88px 0}
+}
+@media (max-width:520px){
+  .facts{grid-template-columns:1fr}
+  .facts div+div{border-left:0;border-top:1px solid var(--line)}
+  .job-top{flex-direction:column;gap:4px}
+  .layer .lw{display:none}
+  .sheet{padding:20px 16px 16px}
+  .sheet-head span+span{display:none}
+}
+
+/* motion */
+@media (prefers-reduced-motion:no-preference){
+  .js .rise{opacity:0;transform:translateY(16px);animation:rise 800ms var(--ease) forwards;animation-delay:var(--d,0ms)}
+  .js [data-r]{opacity:0;transform:translateY(18px);transition:opacity 700ms var(--ease),transform 700ms var(--ease);transition-delay:var(--d,0ms)}
+  .js [data-r].in{opacity:1;transform:none}
+  .words .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12em;margin-bottom:-.12em}
+  .words .w>span{display:inline-block}
+  .js .words .w>span{transform:translateY(108%);transition:transform 900ms var(--ease);transition-delay:calc(var(--i) * 55ms + var(--wd,0ms))}
+  .js .words.in .w>span,.js .in .words .w>span{transform:none}
+  .js [data-r].words{opacity:1;transform:none}
+  .js .lift{--wd:120ms}
+  .js .sl::before{transform:scaleX(0);transition:transform 800ms var(--ease) 120ms}
+  .js .sl.in::before,.js .in .sl::before{transform:none}
+  .js .sheet::after{content:"";position:absolute;inset:0;background:var(--panel);transform-origin:right;animation:wipe 1100ms var(--ease) 350ms forwards;pointer-events:none;z-index:0}
+  .js .sheet>*{position:relative;z-index:1}
+  .js .layers>li:not(.hl){opacity:0;transform:translateX(-10px);animation:slide 600ms var(--ease) forwards;animation-delay:calc(var(--n) * 55ms + 550ms)}
+}
+@keyframes rise{to{opacity:1;transform:none}}
+@keyframes wipe{to{transform:scaleX(0)}}
+@keyframes slide{to{opacity:1;transform:none}}
+</style>
+
+</head>
+<body>
+<nav class="nav" aria-label="Main">
+  <div class="page">
+    <a class="mark" href="#top" aria-label="Jo Gopu, back to top">JG</a>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li class="keep"><a href="#contact">Contact</a></li>
+      <li class="ind" aria-hidden="true"></li>
+      <li class="keep"><button class="theme" type="button" aria-label="Switch light or dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page" id="top">
+  <div class="hero">
+    <div>
+      <p class="kicker mono rise">Sarvesh Joaquim Gopu · Engineer, Singapore</p>
+      <h1 class="words lift"><span class="w"><span style="--i:0">Hardware,</span></span> <span class="w"><span style="--i:1">software,</span></span> <span class="w"><span style="--i:2">and</span></span> <span class="w"><span style="--i:3">the</span></span> <em><span class="w"><span style="--i:4">AI</span></span> <span class="w"><span style="--i:5">in</span></span> <span class="w"><span style="--i:6">between.</span></span></em></h1>
+      <p class="sub rise" style="--d:180ms">I’m Jo. I build AI agents, with a background that runs from machines on a factory floor to the software above them.</p>
+      <p class="status rise" style="--d:240ms">SUTD Computer Science and Design, graduating April 2027 · Open to full-time roles in AI</p>
+      <div class="ctas rise" style="--d:360ms">
+        <a class="btn mono" href="#experience">View experience <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn ghost mono" href="#contact">Contact me</a>
+      </div>
+    </div>
+    <figure class="fig rise" style="--d:200ms;margin:0" aria-label="Figure: the layers I have worked at, from AI agents down to machines">
+      <div class="sheet">
+        <div class="sheet-head mono"><span>Fig. 01 · Where I’ve worked</span><span>Top to bottom</span></div>
+        <ul class="layers"><li class="hl" aria-hidden="true"></li>
+          <li style="--n:0"><button class="layer" type="button" aria-pressed="true"><span class="ln">AI agents</span><span class="lw">Fujifilm, Lanterns</span></button></li>
+          <li style="--n:1"><button class="layer" type="button" aria-pressed="false"><span class="ln">Language models</span><span class="lw">SentineLLM</span></button></li>
+          <li style="--n:2"><button class="layer" type="button" aria-pressed="false"><span class="ln">Security</span><span class="lw">EY</span></button></li>
+          <li style="--n:3"><button class="layer" type="button" aria-pressed="false"><span class="ln">Apps and web</span><span class="lw">Ascenda, 3Dimension</span></button></li>
+          <li style="--n:4"><button class="layer" type="button" aria-pressed="false"><span class="ln">Operating systems</span><span class="lw">Shell in C</span></button></li>
+          <li style="--n:5"><button class="layer" type="button" aria-pressed="false"><span class="ln">Processors</span><span class="lw">FPGA game</span></button></li>
+          <li style="--n:6"><button class="layer" type="button" aria-pressed="false"><span class="ln">Firmware</span><span class="lw">WS Audiology</span></button></li>
+          <li style="--n:7"><button class="layer" type="button" aria-pressed="false"><span class="ln">Machines</span><span class="lw">3Dimension, Turck Banner</span></button></li>
+        </ul>
+        <div class="axis mono"><span>Software</span><span>Hardware</span></div>
+      </div>
+      <figcaption class="tblock">
+        <div><div class="portrait" aria-hidden="true">JG</div></div>
+        <div><p class="tb-title mono">AI agents · Fujifilm, Lanterns</p><p class="tb-say">An AI assistant for Fujifilm’s customers, a triage agent at EY, and my own agents like Lanterns and Hope Today.</p></div>
+      </figcaption>
+    </figure>
+  </div>
+</header>
+
+<section class="orgs" aria-label="Where I have studied and worked">
+  <div class="marquee"><div class="track"><ul class="mono"><li>SUTD</li><li>Fujifilm</li><li>EY</li><li>WS Audiology</li><li>Project 3Dimension</li><li>Turck Banner</li></ul><ul class="mono dup" aria-hidden="true"><li>SUTD</li><li>Fujifilm</li><li>EY</li><li>WS Audiology</li><li>Project 3Dimension</li><li>Turck Banner</li></ul></div></div>
+</section>
+
+<main class="page">
+  <section class="sec" id="about" aria-labelledby="about-h">
+    <div class="about-grid">
+      <div data-r>
+        <p class="label sl mono">01 · About</p>
+        <h2 id="about-h" class="words"><span class="w"><span style="--i:0">From</span></span> <span class="w"><span style="--i:1">the</span></span> <span class="w"><span style="--i:2">machine</span></span> <span class="w"><span style="--i:3">up</span></span> <span class="w"><span style="--i:4">to</span></span> <span class="w"><span style="--i:5">the</span></span> <span class="w"><span style="--i:6">model.</span></span></h2>
+      </div>
+      <div class="about-body" data-r style="--d:80ms">
+        <p>I started in mechatronics at Ngee Ann Polytechnic, building and fixing the machines themselves. Now I study Computer Science and Design at SUTD, focusing on AI and cybersecurity.</p>
+        <p>These days most of my time goes into AI agents: at Fujifilm, and in my own projects. My hardware background helps, because a good agent, like a good machine, has to act reliably in the real world.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="experience" aria-labelledby="exp-h">
+    <p class="label sl mono" data-r>02 · Experience</p>
+    <h2 id="exp-h" class="words" data-r><span class="w"><span style="--i:0">Where</span></span> <span class="w"><span style="--i:1">I’ve</span></span> <span class="w"><span style="--i:2">worked.</span></span></h2>
+    <ul class="jobs">
+      <li class="job wide" id="fujifilm" data-r style="--d:0ms">
+        <div class="job-top"><h3>Fujifilm Business Innovation</h3><span class="when mono">Sep 2026 – Apr 2027</span></div>
+        <p class="role mono">AI Engineer <span>· Industry project with SUTD</span></p>
+        <p class="what">Part of a team of seven building an AI assistant for Fujifilm’s business customers. It answers questions from company knowledge and takes real actions, like opening support tickets and ordering supplies, with approvals built in. I work on how the agent is put together and which models it runs on.</p>
+        <ul class="tags mono"><li>AI agents</li><li>AWS</li><li>Model selection</li></ul>
+      </li>
+      <li class="job" id="ey" data-r style="--d:70ms">
+        <div class="job-top"><h3>EY</h3><span class="when mono">Sep – Oct 2026</span></div>
+        <p class="role mono">Cybersecurity Intern <span>· Technology Consulting</span></p>
+        <p class="what">Built a Python tool that sorts client files for vulnerability reports automatically, and designed an AI agent that helps the team prioritise security findings.</p>
+        <ul class="tags mono"><li>Python</li><li>Microsoft Copilot</li><li>Security</li></ul>
+      </li>
+      <li class="job" id="3d" data-r style="--d:0ms">
+        <div class="job-top"><h3>Project 3Dimension</h3><span class="when mono">May – Aug 2026</span></div>
+        <p class="role mono">Embedded Systems Intern <span>· Robotics startup</span></p>
+        <p class="what">Set up the motion control for the startup’s main machine and connected it to their ordering app, so customer orders run the system on their own. Took it from prototype to a working product.</p>
+        <ul class="tags mono"><li>PLC</li><li>Firebase</li><li>Flutter</li></ul>
+      </li>
+      <li class="job" id="wsa" data-r style="--d:70ms">
+        <div class="job-top"><h3>WS Audiology</h3><span class="when mono">Sep 2025 – Jan 2026</span></div>
+        <p class="role mono">Firmware Developer & Test Intern <span>· Hearing-aid maker</span></p>
+        <p class="what">Wrote firmware for a hearing-aid charger in a regulated medical-device setting, and automated its testing so problems were caught earlier.</p>
+        <ul class="tags mono"><li>C++</li><li>Test automation</li><li>Azure DevOps</li></ul>
+      </li>
+      <li class="job" id="turck" data-r style="--d:0ms">
+        <div class="job-top"><h3>Turck Banner</h3><span class="when mono">Apr – Sep 2020</span></div>
+        <p class="role mono">Engineering Intern <span>· Industrial sensors</span></p>
+        <p class="what">Tested and debugged industrial sensors before release, signed off five products, and set up the live demo room used to show them to clients.</p>
+        <ul class="tags mono"><li>Sensors</li><li>Validation</li></ul>
+      </li>
+    </ul>
+  </section>
+
+  <section class="sec" id="projects" aria-labelledby="proj-h">
+    <p class="label sl mono" data-r>03 · Projects</p>
+    <h2 id="proj-h" class="words" data-r><span class="w"><span style="--i:0">Things</span></span> <span class="w"><span style="--i:1">I’ve</span></span> <span class="w"><span style="--i:2">built.</span></span></h2>
+    <h3 class="group mono" data-r>AI agents</h3>
+    <ul class="projects">
+      <li class="proj" data-r style="--d:0ms">
+        <p class="label mono">AI agent</p>
+        <h3>Lanterns</h3>
+        <p>Type an idea, like “a dragon guarding a bridge”, and the agent researches it, plans it, reuses parts it has built before and designs an animated 3D model. It checks its own work and fixes mistakes before showing the result.</p>
+        <ul class="tags mono"><li>Claude API</li><li>Three.js</li><li>Python</li></ul>
+        <a href="https://github.com/TARDIGRADES-ARE-COOL/Lanterns" target="_blank" rel="noopener">GitHub <span class="arr" aria-hidden="true">→</span></a>
+      </li>
+      <li class="proj" data-r style="--d:70ms">
+        <p class="label mono">AI agent · in progress</p>
+        <h3>Hope Today</h3>
+        <p>An agent that asks what would give you hope, searches today’s news for real good news on it, and turns the best stories into a short slide deck. Built from scratch, with its own tool servers, to learn how agents really work.</p>
+        <ul class="tags mono"><li>Python</li><li>MCP</li><li>OpenAI API</li></ul>
+        <a href="https://github.com/TARDIGRADES-ARE-COOL/hope-today" target="_blank" rel="noopener">GitHub <span class="arr" aria-hidden="true">→</span></a>
+      </li>
+      <li class="proj" data-r style="--d:140ms">
+        <p class="label mono">AI agent</p>
+        <h3>Pokedex Agent</h3>
+        <p>My first agent, from the Hugging Face Agents course. Ask about any Pokémon and it looks up the real stats by writing and running its own tool calls.</p>
+        <ul class="tags mono"><li>smolagents</li><li>Gradio</li><li>Qwen</li></ul>
+        <a href="https://github.com/TARDIGRADES-ARE-COOL/pokedex-agent" target="_blank" rel="noopener">GitHub <span class="arr" aria-hidden="true">→</span></a>
+      </li>
+    </ul>
+    <h3 class="group mono" data-r>Other projects</h3>
+    <ul class="projects">
+      <li class="proj" data-r style="--d:0ms">
+        <p class="label mono">AI safety</p>
+        <h3>SentineLLM</h3>
+        <p>A system that spots attempts to trick AI chatbots into misbehaving. Caught 94% of attacks in testing.</p>
+        <ul class="tags mono"><li>PyTorch</li><li>Fine-tuning</li></ul>
+        
+      </li>
+      <li class="proj" data-r style="--d:70ms">
+        <p class="label mono">AI search</p>
+        <h3>Hybrid RAG for BrainHack TIL-26</h3>
+        <p>Built my team’s question-answering system for a national AI competition, finding the right documents fast enough to meet its time limits.</p>
+        <ul class="tags mono"><li>Python</li><li>Retrieval</li></ul>
+        
+      </li>
+      <li class="proj" data-r style="--d:140ms">
+        <p class="label mono">Hardware</p>
+        <h3>Keep Talking or the FPGA Explodes</h3>
+        <p>A playable game running on a processor I designed myself, built in under a month.</p>
+        <ul class="tags mono"><li>FPGA</li><li>Lucid HDL</li></ul>
+        <a href="https://github.com/TARDIGRADES-ARE-COOL/FPGA_GAME" target="_blank" rel="noopener">GitHub <span class="arr" aria-hidden="true">→</span></a>
+      </li>
+      <li class="proj" data-r style="--d:0ms">
+        <p class="label mono">Systems</p>
+        <h3>Unix-style shell</h3>
+        <p>A command-line shell written from scratch in C, with background jobs, variables and a config file.</p>
+        <ul class="tags mono"><li>C</li><li>Linux</li></ul>
+        <a href="https://github.com/TARDIGRADES-ARE-COOL/unix_shell" target="_blank" rel="noopener">GitHub <span class="arr" aria-hidden="true">→</span></a>
+      </li>
+      <li class="proj" data-r style="--d:70ms">
+        <p class="label mono">Web</p>
+        <h3>Hotel booking web app</h3>
+        <p>A full-stack hotel booking site built with a team for Ascenda, a travel-rewards company.</p>
+        <ul class="tags mono"><li>React</li><li>Node.js</li><li>SQL</li></ul>
+        <a href="https://github.com/TARDIGRADES-ARE-COOL/ASCENDA-Hotel-Booking-Website" target="_blank" rel="noopener">GitHub <span class="arr" aria-hidden="true">→</span></a>
+      </li>
+    </ul>
+  </section>
+
+  <section class="sec" id="education" aria-labelledby="edu-h">
+    <p class="label sl mono" data-r>04 · Education</p>
+    <h2 id="edu-h" class="words" data-r><span class="w"><span style="--i:0">Studies</span></span> <span class="w"><span style="--i:1">and</span></span> <span class="w"><span style="--i:2">awards.</span></span></h2>
+    <div class="edu" data-r>
+      <div>
+        <h3 class="mono">Education</h3>
+        <p>Singapore University of Technology and Design<span class="q">B.Eng. Computer Science and Design, AI and Cybersecurity, 2023–2027</span></p>
+        <p>Ngee Ann Polytechnic<span class="q">Diploma in Automation and Mechatronics Systems Engineering</span></p>
+      </div>
+      <div>
+        <h3 class="mono">Awards</h3>
+        <p>Winner, DSO National Laboratories CTF</p>
+        <p>KKH–SUTD Scholarship<span class="q">Awarded twice</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact" aria-labelledby="contact-h">
+    <p class="label sl mono" data-r>05 · Contact</p>
+    <h2 id="contact-h" class="words" data-r><span class="w"><span style="--i:0">Let’s</span></span> <em><span class="w"><span style="--i:1">talk.</span></span></em></h2>
+    <p class="lead" data-r>Hiring for 2027? I’d love to hear about the role and the team.</p>
+    <a class="mail" href="mailto:joaquimgopu3@gmail.com" data-r>joaquimgopu3@gmail.com</a>
+    <div class="contact-row" data-r>
+      <button class="btn copy mono" type="button">Copy email</button>
+      <a class="btn ghost mono" href="https://www.linkedin.com/in/sarveshjoaquimgopu" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn ghost mono" href="https://github.com/TARDIGRADES-ARE-COOL" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </section>
+
+  <footer class="foot mono"><span>Jo Gopu · Singapore</span><span>2026</span></footer>
+</main>
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ document.querySelector('h1.words').classList.add('in'); }); });
+
+  /* theme toggle: a circle of the new theme grows out of the button */
+  var root = document.documentElement, tb = document.querySelector('.theme');
+  try{ var saved = localStorage.getItem('jg-theme'); if(saved) root.setAttribute('data-theme', saved); }catch(e){}
+  tb.addEventListener('click', function(){
+    var dark = root.getAttribute('data-theme') ? root.getAttribute('data-theme') === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    var next = dark ? 'light' : 'dark';
+    function apply(){ root.setAttribute('data-theme', next); try{ localStorage.setItem('jg-theme', next); }catch(e){} }
+    tb.querySelector('svg').animate([{transform:'rotate(-90deg) scale(.6)'},{transform:'none'}], {duration:420, easing:'cubic-bezier(.23,1,.32,1)'});
+    if(!document.startViewTransition || reduce){ apply(); return; }
+    var r = tb.getBoundingClientRect(), x = r.left + r.width/2, y = r.top + r.height/2;
+    var R = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    var t = document.startViewTransition(apply);
+    t.ready.then(function(){
+      root.animate({clipPath:['circle(0px at '+x+'px '+y+'px)', 'circle('+R+'px at '+x+'px '+y+'px)']},
+        {duration:600, easing:'cubic-bezier(.23,1,.32,1)', pseudoElement:'::view-transition-new(root)'});
+    }).catch(function(){});
+  });
+
+  /* nav: an underline slides to the section you are reading */
+  var navUl = document.querySelector('.nav ul'), ind = document.querySelector('.nav .ind');
+  var links = [].slice.call(document.querySelectorAll('.nav ul a[href^="#"]'));
+  function mark(a){
+    links.forEach(function(l){ l.classList.toggle('on', l===a); });
+    if(!a || !a.offsetParent){ ind.style.setProperty('--io', 0); return; }
+    ind.style.setProperty('--ix', a.offsetLeft + 'px'); ind.style.setProperty('--iw', a.offsetWidth + 'px'); ind.style.setProperty('--io', 1);
+  }
+  if('IntersectionObserver' in window){
+    var spy = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ mark(links.filter(function(l){ return l.getAttribute('href') === '#' + e.target.id; })[0] || null); } });
+    }, {rootMargin:'-40% 0px -55% 0px'});
+    ['top','about','experience','projects','education','contact'].forEach(function(id){ var el = document.getElementById(id); if(el) spy.observe(el); });
+  }
+
+  /* the figure: a highlight slides between layers; it walks the stack by itself until you touch it */
+  var LAYERS = [["AI agents","Fujifilm, Lanterns","An AI assistant for Fujifilm’s customers, a triage agent at EY, and my own agents like Lanterns and Hope Today."],["Language models","SentineLLM","Fine-tuned a model to catch attempts to trick AI chatbots."],["Security","EY","Automated vulnerability reporting and designed a triage agent at EY."],["Apps and web","Ascenda, 3Dimension","Web and mobile apps, from a hotel booking site to an ordering app."],["Operating systems","Shell in C","Wrote a Unix-style command shell from scratch."],["Processors","FPGA game","Designed a simple processor and ran a game on it."],["Firmware","WS Audiology","Firmware for a hearing-aid charger, with automated tests."],["Machines","3Dimension, Turck Banner","Motion control, industrial controllers and sensors."]];
+  var list = document.querySelector('.layers'), hl = list.querySelector('.hl'), tblock = document.querySelector('.tblock');
+  var btns = [].slice.call(document.querySelectorAll('.layer')), title = document.querySelector('.tb-title'), say = document.querySelector('.tb-say');
+  var cur = 0, user = false, swapT;
+  function place(i){
+    var li = btns[i].parentNode;
+    hl.style.setProperty('--y', li.offsetTop + 'px'); hl.style.setProperty('--h', li.offsetHeight + 'px');
+  }
+  function pick(i, quiet){
+    if(i === cur && !quiet) return; cur = i;
+    btns.forEach(function(b,j){ b.setAttribute('aria-pressed', i===j); });
+    place(i);
+    if(quiet){ title.textContent = LAYERS[i][0] + ' · ' + LAYERS[i][1]; say.textContent = LAYERS[i][2]; return; }
+    tblock.classList.add('swap'); clearTimeout(swapT);
+    swapT = setTimeout(function(){ title.textContent = LAYERS[i][0] + ' · ' + LAYERS[i][1]; say.textContent = LAYERS[i][2]; tblock.classList.remove('swap'); }, 180);
+  }
+  function stop(){ user = true; }
+  btns.forEach(function(b,i){
+    b.addEventListener('click', function(){ stop(); pick(i); });
+    b.addEventListener('focus', function(){ stop(); pick(i); });
+    b.addEventListener('pointerenter', function(e){ if(e.pointerType === 'mouse'){ stop(); pick(i); } });
+  });
+  pick(0, true); list.classList.add('ready');
+  addEventListener('resize', function(){ place(cur); });
+  if(!reduce){
+    var figVisible = true;
+    if('IntersectionObserver' in window) new IntersectionObserver(function(es){ figVisible = es[0].isIntersecting; }).observe(list);
+    setTimeout(function(){
+      setInterval(function(){ if(!user && figVisible && !document.hidden) pick((cur + 1) % btns.length); }, 2600);
+    }, 1800);
+  }
+
+  /* entrances */
+  var rs = document.querySelectorAll('[data-r]');
+  if('IntersectionObserver' in window){
+    var ro = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); ro.unobserve(e.target); } });
+    }, {threshold:0, rootMargin:'0px 0px -4% 0px'});
+    rs.forEach(function(r){ ro.observe(r); });
+  } else rs.forEach(function(r){ r.classList.add('in'); });
+
+  /* copy email */
+  var cb = document.querySelector('.copy'), addr = document.querySelector('.mail');
+  cb.addEventListener('click', function(){
+    function done(m){ cb.textContent = m; setTimeout(function(){ cb.textContent = 'Copy email'; }, 2000); }
+    function select(){ var r = document.createRange(); r.selectNodeContents(addr); var s = getSelection(); s.removeAllRanges(); s.addRange(r); done('Selected, press copy'); }
+    try{ navigator.clipboard.writeText(addr.textContent.trim()).then(function(){ done('Copied'); }, select); }catch(e){ select(); }
+  });
+})();
+</script>
+</body>
 </html>
