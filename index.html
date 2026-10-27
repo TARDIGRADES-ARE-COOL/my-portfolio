@@ -6,7 +6,7 @@
 <title>Sarvesh Joaquim Gopu</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Jo Gopu, an engineer and computer science student in Singapore working across hardware, software and AI.">
-<script>document.documentElement.classList.add('js')</script>
+<script>document.documentElement.classList.add('js');(function(){var r=document.documentElement;function z(){var w=innerWidth,h=innerHeight,k=w>1500?Math.max(1,Math.min(w/1440,h/800,2.4)):1;r.style.setProperty('--z',k.toFixed(3))}z();addEventListener('resize',z)})()</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
@@ -120,8 +120,10 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 @media (prefers-reduced-motion:reduce){.mq-toggle{display:none}}
 .marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
 .track{display:flex;width:max-content}
+/* big monitors: everything (type, spacing, cards) scales up together with the window width */
+body > :not(.buddy):not(script){zoom:var(--z,1)}
 .orgs ul{display:flex;gap:56px;list-style:none;margin:0;padding:22px 28px;white-space:nowrap}
-@media (prefers-reduced-motion:no-preference){.track{animation:marq 38s linear infinite}.marquee:hover .track,.orgs:focus-within .track{animation-play-state:paused}}
+@media (prefers-reduced-motion:no-preference){.track{animation:marq 114s linear infinite}.marquee:hover .track,.orgs:focus-within .track{animation-play-state:paused}}
 @media (prefers-reduced-motion:reduce){.marquee{-webkit-mask-image:none;mask-image:none}.track{width:auto;justify-content:center}.orgs ul{flex-wrap:wrap;justify-content:center;gap:12px 40px}.orgs .dup{display:none}}
 @keyframes marq{to{transform:translateX(-50%)}}
 .orgs li{color:var(--muted)}
@@ -283,7 +285,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 /* mini Jo */
 .buddy{--bx:0px;--by:0px;--bs:1;--pt:0deg;--skin:#b07a55;--skin-d:#8d5a3b;--hair:#15100e;--shirt:#232120;--pants:#3b4556;--shoe:#f6f3ee;--line-ink:#2a1c15;
-  position:fixed;left:0;top:0;z-index:30;width:80px;height:112px;
+  --u:var(--z,1);position:fixed;left:0;top:0;z-index:30;width:calc(80px * var(--u));height:calc(112px * var(--u));
   transform:translate3d(var(--bx),var(--by),0) scale(var(--bs));transform-origin:0 0;pointer-events:none;will-change:transform;transition:opacity 260ms ease}
 .buddy.tucked{opacity:0}.buddy.tucked .buddy-body{pointer-events:none}
 .buddy-say{scale:calc(1 / var(--bs))}
@@ -342,7 +344,10 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .buddy.say-r .buddy-say{right:auto;left:84px;transform-origin:0 50%;transform:translateX(-6px) scale(.96)}
 .buddy.say-r.saying .buddy-say{transform:none}
 .buddy.say-r .buddy-say::after{right:auto;left:-6px;border:0;border-left:1px solid var(--line);border-bottom:1px solid var(--line)}
-@media (max-width:640px){.buddy{width:56px;height:78px}.buddy svg{width:56px;height:78px}.buddy-say{right:60px}.buddy.say-r .buddy-say{left:60px}.buddy-say::after{top:12px}}
+.buddy svg{width:calc(80px * var(--u));height:calc(112px * var(--u))}
+.buddy-say{right:calc(80px * var(--u) + 4px)}.buddy.say-r .buddy-say{left:calc(80px * var(--u) + 4px)}
+.buddy-say span{font-size:calc(.8125rem * var(--u));max-width:calc(260px * var(--u))}
+@media (max-width:640px){.buddy{--u:.7}.buddy-say::after{top:12px}}
 @media (prefers-reduced-motion:no-preference){
   .buddy.running .b-bob{animation:b-bob 300ms ease-in-out infinite}
   .buddy.running .b-leg-l{animation:b-run 300ms ease-in-out infinite}
@@ -369,13 +374,17 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 @keyframes b-blink{0%,93%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
 @media print{.buddy{display:none}}
 
-.buddy canvas.b3d{position:absolute;left:-35px;bottom:-8px;width:150px;height:200px;pointer-events:none}
-.buddy.is-3d svg{display:none}.buddy.is-3d .buddy-body{width:100%;height:100%}
+.buddy canvas.b3d{position:absolute;left:calc(-35px * var(--u));bottom:calc(-8px * var(--u));width:calc(150px * var(--u));height:calc(200px * var(--u));pointer-events:none}
+.buddy.is-3d svg{display:none}
+.buddy-body{touch-action:none;-webkit-user-select:none;user-select:none}
+.buddy canvas.b3d{transform-origin:50% 100%;transition:transform 200ms ease}
+.buddy.pressing canvas.b3d{transform:scale(1.05,.93);transition:transform .5s cubic-bezier(.3,0,.2,1)}
+.buddy.dragged .buddy-body{cursor:grabbing}.buddy.is-3d .buddy-body{width:100%;height:100%}
 @media (prefers-reduced-motion:no-preference){
   .buddy.hop canvas.b3d{animation:b-hop 420ms cubic-bezier(.23,1,.32,1) 1}
   .buddy.rising canvas.b3d{animation:b-hop 360ms ease-out infinite}
 }
-@media (max-width:640px){.buddy canvas.b3d{left:-24.5px;bottom:-6px;width:105px;height:140px}}
+
 </style>
 
 
@@ -432,7 +441,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 </header>
 
 <section class="orgs" aria-label="Where I have studied and worked">
-  <button class="mq-toggle" type="button" aria-pressed="false" aria-label="Pause the scrolling list"><svg viewBox="0 0 16 16" aria-hidden="true"><rect class="i-pause" x="4" y="3" width="2.5" height="10"/><rect class="i-pause" x="9.5" y="3" width="2.5" height="10"/><path class="i-play" d="M5 3l8 5-8 5z"/></svg></button><div class="marquee"><div class="track"><ul class="mono"><li>SUTD</li><li>Fujifilm</li><li>EY</li><li>WS Audiology</li><li>Project 3Dimension</li><li>Turck Banner</li></ul><ul class="mono dup" aria-hidden="true"><li>SUTD</li><li>Fujifilm</li><li>EY</li><li>WS Audiology</li><li>Project 3Dimension</li><li>Turck Banner</li></ul></div></div>
+  <button class="mq-toggle" type="button" aria-pressed="false" aria-label="Pause the scrolling list"><svg viewBox="0 0 16 16" aria-hidden="true"><rect class="i-pause" x="4" y="3" width="2.5" height="10"/><rect class="i-pause" x="9.5" y="3" width="2.5" height="10"/><path class="i-play" d="M5 3l8 5-8 5z"/></svg></button><div class="marquee"><div class="track"><ul class="mono"><li>SUTD</li><li>Fujifilm</li><li>EY</li><li>WS Audiology</li><li>Project 3Dimension</li><li>Turck Banner</li></ul><ul class="mono dup" aria-hidden="true"><li>SUTD</li><li>Fujifilm</li><li>EY</li><li>WS Audiology</li><li>Project 3Dimension</li><li>Turck Banner</li></ul><ul class="mono dup" aria-hidden="true"><li>SUTD</li><li>Fujifilm</li><li>EY</li><li>WS Audiology</li><li>Project 3Dimension</li><li>Turck Banner</li></ul><ul class="mono dup" aria-hidden="true"><li>SUTD</li><li>Fujifilm</li><li>EY</li><li>WS Audiology</li><li>Project 3Dimension</li><li>Turck Banner</li></ul><ul class="mono dup" aria-hidden="true"><li>SUTD</li><li>Fujifilm</li><li>EY</li><li>WS Audiology</li><li>Project 3Dimension</li><li>Turck Banner</li></ul><ul class="mono dup" aria-hidden="true"><li>SUTD</li><li>Fujifilm</li><li>EY</li><li>WS Audiology</li><li>Project 3Dimension</li><li>Turck Banner</li></ul></div></div>
 </section>
 
 <main class="page" id="main" tabindex="-1">
@@ -932,12 +941,13 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       var f = ext(FLOAT, bs), top = topLimit() - f.t, bottom = innerHeight - f.b - 10;
       return { x: innerWidth - 8 - f.r, y: top + progress() * (bottom - top) };
     }
-    function settle(){
+    function settle(away){
+      if(mode === 'drag') return;
       mode = 'settle';
       if(cur){ var hit = document.elementFromPoint(cur.x, cur.y); if(hit && !el.contains(hit)) box = hit.closest ? hit.closest(BOXES) : null; }
       var free = buildMap(), next = null;
       if(box) next = cardSpot(free, box);
-      if(!next) next = nearestFree(free, pos.x, pos.y, FLOAT);
+      if(!next) next = away ? nearestFree(free, pos.x + away.x, pos.y + away.y, FLOAT) : nearestFree(free, pos.x, pos.y, FLOAT);
       if(!next){ var e = edgeSpot(); next = {x:e.x, y:e.y, s:bs, stand:false}; }
       if(!spot || Math.abs(next.x - spot.x) > 1 || Math.abs(next.y - spot.y) > 1 || next.stand !== spot.stand) arrived = false;
       next.cost = spotCost(free, next);
@@ -957,6 +967,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     }
     function tick(now){
       var dt = Math.max(0, Math.min(48, now - last)) / 1000; last = now;
+      if(mode === 'drag'){ flags({ gliding:false, rising:false, running:false, walking:false, landed:false, standing:false }); place(); requestAnimationFrame(tick); return; }
       if(mode === 'scroll'){ var e = edgeSpot(); tgt.x = e.x; tgt.y = e.y; }
       else if(spot){ tgt.x = spot.x; tgt.y = spot.y; bs += (spot.s - bs) * Math.min(1, dt * 6); }
       var dx = tgt.x - pos.x, dy = tgt.y - pos.y, d = Math.hypot(dx, dy);
@@ -991,6 +1002,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       requestAnimationFrame(tick);
     }
     function onScroll(){
+      if(mode === 'drag') return;
       if(still){ clearTimeout(settleT); settleT = setTimeout(function(){ settle(); pos.x = spot.x; pos.y = spot.y; bs = spot.s; place(); flags({ standing: spot.stand, landed: spot.stand, gliding: !spot.stand }); }, 160); return; }
       if(mode !== 'scroll'){ pulse('hop', 380); el.classList.remove('saying'); }
       if(progress() < .9) el.classList.remove('hero');
@@ -1018,7 +1030,48 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       });
       document.addEventListener('mouseleave', function(){ cur = null; if(box){ box = null; if(mode === 'settle') settle(); } });
     }
+    /* press on him to pick him up straight away and drag him around; he struggles, and breaks free after 5 seconds */
+    var holdT, escT, dragging = false, suppress = false, start = null, lastP = null, grab = {x:0, y:0}, lines2;
+    function clampPos(){ var w = el.offsetWidth * bs, h = el.offsetHeight * bs; pos.x = Math.max(-w * .3, Math.min(innerWidth - w * .7, pos.x)); pos.y = Math.max(0, Math.min(innerHeight - h * .6, pos.y)); }
+    function release(away){ el.classList.remove('dragged', 'pressing'); dragging = false; clearTimeout(escT); clearTimeout(lines2); mode = 'scroll'; arrived = false; spot = null; settle(away); }
+    function pickUp(){
+      dragging = true; mode = 'drag'; start.t = performance.now();
+      el.classList.remove('pressing', 'hero'); el.classList.add('dragged');
+      grab.x = lastP.x - pos.x; grab.y = lastP.y - pos.y;
+      lines2 = setTimeout(function(){ if(!dragging) return; speak('Hey! Put me down!', 2200);
+        lines2 = setTimeout(function(){ if(dragging) speak('Let me go!!', 2200); }, 2300); }, 250);
+      escT = setTimeout(function(){
+        if(!dragging) return;
+        try{ body.releasePointerCapture(start.id); }catch(_){}
+        /* he makes a run for it, away from the cursor */
+        var dir = pos.x + el.offsetWidth / 2 < innerWidth / 2 ? 1 : -1;
+        release({ x: dir * 260, y: -40 }); pulse('escape', 700); pulse('hop', 450); speak('Ha! Free!', 2000);
+      }, 5000);
+    }
+    body.addEventListener('pointerdown', function(e){
+      if(e.button > 0) return;
+      suppress = false; start = {x:e.clientX, y:e.clientY, id:e.pointerId}; lastP = {x:e.clientX, y:e.clientY};
+      try{ body.setPointerCapture(e.pointerId); }catch(_){}
+      pickUp();
+    });
+    body.addEventListener('pointermove', function(e){
+      if(!start) return;
+      lastP = {x:e.clientX, y:e.clientY};
+      if(dragging){ pos.x = lastP.x - grab.x; pos.y = lastP.y - grab.y; clampPos(); }
+    });
+    function up(){
+      if(!start) return;
+      var quick = dragging && performance.now() - start.t < 250 && Math.hypot(lastP.x - start.x, lastP.y - start.y) < 6;
+      start = null;
+      if(!dragging) return;
+      /* a quick tap is still a tap: put him back without fuss and let the click make him hop and wave */
+      if(quick){ release(); return; }
+      suppress = true; release(); speak('Phew.', 1400);
+    }
+    body.addEventListener('pointerup', up); body.addEventListener('pointercancel', up);
+    body.addEventListener('contextmenu', function(e){ e.preventDefault(); });
     body.addEventListener('click', function(){
+      if(suppress){ suppress = false; return; }
       pulse('hop', 450); pulse('waving', 1200);
       var lines = ['Hello!', 'Thanks for visiting!', 'Have a look at Lanterns.', 'I’m open to roles from April 2027.'];
       speak(lines[Math.floor(Math.random() * lines.length)], 2400);
@@ -1037,7 +1090,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     import('https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js').then(function(T){
       var CW = 150, CH = 200;
       var renderer = new T.WebGLRenderer({ antialias:true, alpha:true, powerPreference:'low-power' });
-      renderer.setPixelRatio(Math.min(2, devicePixelRatio || 1));
+      var U = function(){ return parseFloat(getComputedStyle(el).getPropertyValue('--u')) || 1; };
+      renderer.setPixelRatio(Math.min(2, devicePixelRatio || 1) * Math.max(1, U()));
+      addEventListener('resize', function(){ renderer.setPixelRatio(Math.min(2, devicePixelRatio || 1) * Math.max(1, U())); renderer.setSize(CW, CH, false); });
       renderer.setSize(CW, CH, false);
       renderer.outputColorSpace = T.SRGBColorSpace;
       var cv = renderer.domElement; cv.className = 'b3d'; cv.setAttribute('aria-hidden', 'true');
@@ -1168,7 +1223,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
         hero.visible = on; quiff.visible = on; hat.visible = !on; strap.visible = bag.visible = flap.visible = print.visible = !on;
         mat.shirt.color.copy(on ? suit.shirt : base.shirt); mat.pants.color.copy(on ? suit.pants : base.pants); mat.shoe.color.copy(on ? suit.shoe : base.shoe);
       }
-      var heroOn = false, heroT = -1, heroDir = 0, swapped = true;
+      var heroOn = false, heroT = -1, heroDir = 0, swapped = true, escT = -1;
 
       host.appendChild(cv); el.classList.add('is-3d');
 
@@ -1201,16 +1256,20 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
           if(heroDir > 0 && heroT > dur && heroT < dur + 1.4) fist = true;
           if(heroT > dur + 1.4 || (heroDir < 0 && heroT > dur)) heroT = -1;
         }
-        if(heroOn){ glide = false; }
+        /* picked up: kick and flail; on escape, a quick spin free */
+        var drag = has('dragged');
+        if(has('escape') && escT < 0) escT = 0;
+        var spinE = 0; if(escT >= 0){ escT += dt; var q = Math.min(1, escT / .6); spinE = (1 - Math.pow(1 - q, 3)) * Math.PI * 2; if(escT > .6) escT = -1; }
+        if(heroOn || drag){ glide = false; }
         open = ease(open, glide ? 1 : 0, still ? 1 : 1 - Math.pow(.002, dt));
         yaw = ease(yaw, go ? (dirL ? -1.15 : 1.15) : (glide ? Math.sin(t * 1.1) * .1 : Math.sin(t * .7) * .06), 1 - Math.pow(.0004, dt));
         if(go) stride += dt * (run ? 11 : 7);
         var amp = run ? .85 : walk ? .5 : 0, step = Math.sin(stride) * amp;
-        var toR = fist ? 2.95 : glide ? 2.72 : rise ? .7 : wave ? 2.55 + Math.sin(t * 13) * .32 : go ? .14 : heroOn ? .32 : .12;
-        var toL = glide ? -.3 : rise ? -.7 : go ? -.14 : heroOn ? -.32 : -.12;
-        aR = ease(aR, toR, k); aL = ease(aL, toL, k);
-        var swing = go ? step : glide ? Math.sin(t * 2.2) * .22 : 0;
-        lL = go ? swing : ease(lL, swing, k); lR = go ? -swing : ease(lR, -swing, k);
+        var toR = drag ? 2.5 + Math.sin(t * 17) * .45 : fist ? 2.95 : glide ? 2.72 : rise ? .7 : wave ? 2.55 + Math.sin(t * 13) * .32 : go ? .14 : heroOn ? .32 : .12;
+        var toL = drag ? -2.5 - Math.sin(t * 17 + 1.3) * .45 : glide ? -.3 : rise ? -.7 : go ? -.14 : heroOn ? -.32 : -.12;
+        aR = drag ? ease(aR, toR, .6) : ease(aR, toR, k); aL = drag ? ease(aL, toL, .6) : ease(aL, toL, k);
+        var swing = drag ? Math.sin(t * 15) * .75 : go ? step : glide ? Math.sin(t * 2.2) * .22 : 0;
+        lL = go || drag ? swing : ease(lL, swing, k); lR = go || drag ? -swing : ease(lR, -swing, k);
         aX = ease(aX, go ? -step * .9 : 0, go ? 1 : k);
         sh = ease(sh, land ? .16 : 0, k);
 
@@ -1223,8 +1282,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
           if(Math.hypot(ddx, ddy) < 900){ tY = Math.max(-.6, Math.min(.6, ddx / 320)); tX = Math.max(-.3, Math.min(.35, ddy / 420)); }
         }
         hY = ease(hY, tY, 1 - Math.pow(.004, dt)); hX = ease(hX, tX, 1 - Math.pow(.004, dt));
-        root.rotation.y = yaw + hY * .35 + spinX;
-        root.rotation.z = glide ? Math.sin(t * 2.2) * .045 : 0;
+        root.rotation.y = yaw + hY * .35 + spinX + spinE;
+        root.rotation.z = drag ? Math.sin(t * 10) * .2 : glide ? Math.sin(t * 2.2) * .045 : 0;
         root.rotation.x = ease(root.rotation.x, run ? .14 : walk ? .05 : 0, k);
         body.position.y = lift + (heroOn && !go ? .06 + Math.sin(t * 2) * .04 : 0) + (go ? Math.abs(Math.sin(stride)) * (run ? .09 : .04) : glide ? Math.sin(t * 2.2 + 1) * .03 : Math.sin(t * 2) * .008);
         armR.rotation.z = aR; armL.rotation.z = aL;
@@ -1232,7 +1291,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
         legL.rotation.x = lL; legR.rotation.x = lR;
         head.rotation.z = glide ? Math.sin(t * 2.2 + .6) * .05 : Math.sin(t * .9) * .03;
         head.rotation.x = (land ? .05 : -.04) + hX;
-        head.rotation.y = hY * .75;
+        head.rotation.y = drag ? Math.sin(t * 8) * .35 : hY * .75;
         umb.visible = open > .03;
         umb.rotation.z = .12 - aR;
         umb.rotation.x = .15;
