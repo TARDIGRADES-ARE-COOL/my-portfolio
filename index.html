@@ -121,7 +121,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
 .track{display:flex;width:max-content}
 /* big monitors: everything (type, spacing, cards) scales up together with the window width */
-body > :not(.buddy):not(script){zoom:var(--z,1)}
+body > :not(.buddy):not(.buddy-say):not(script){zoom:var(--z,1)}
 .orgs ul{display:flex;gap:56px;list-style:none;margin:0;padding:22px 28px;white-space:nowrap}
 @media (prefers-reduced-motion:no-preference){.track{animation:marq 114s linear infinite}.marquee:hover .track,.orgs:focus-within .track{animation-play-state:paused}}
 @media (prefers-reduced-motion:reduce){.marquee{-webkit-mask-image:none;mask-image:none}.track{width:auto;justify-content:center}.orgs ul{flex-wrap:wrap;justify-content:center;gap:12px 40px}.orgs .dup{display:none}}
@@ -288,7 +288,6 @@ body > :not(.buddy):not(script){zoom:var(--z,1)}
   --u:var(--z,1);position:fixed;left:0;top:0;z-index:30;width:calc(80px * var(--u));height:calc(112px * var(--u));
   transform:translate3d(var(--bx),var(--by),0) scale(var(--bs));transform-origin:0 0;pointer-events:none;will-change:transform;transition:opacity 260ms ease}
 .buddy.tucked{opacity:0}.buddy.tucked .buddy-body{pointer-events:none}
-.buddy-say{scale:calc(1 / var(--bs))}
 .buddy-body{all:unset;display:block;pointer-events:auto;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .buddy.chasing .buddy-body{pointer-events:none}
 .buddy svg{display:block;overflow:visible;transition:transform 220ms ease;filter:drop-shadow(1.4px 0 0 #fff) drop-shadow(-1.4px 0 0 #fff) drop-shadow(0 1.4px 0 #fff) drop-shadow(0 -1.4px 0 #fff) drop-shadow(0 3px 5px rgba(0,0,0,.14))}
@@ -333,21 +332,20 @@ body > :not(.buddy):not(script){zoom:var(--z,1)}
 .buddy.rising .b-arm-l{transform:rotate(34deg)}.buddy.rising .b-arm-r{transform:rotate(-34deg)}
 /* pointing at the cursor */
 .buddy.pointing .b-arm-r{transform:rotate(var(--pt))}
-/* speech bubble beside his head */
-.buddy-say{position:absolute;top:2px;right:84px;transform:translateX(6px) scale(.96);transform-origin:100% 50%;
-  opacity:0;pointer-events:none;transition:opacity 220ms ease,transform 300ms cubic-bezier(.23,1,.32,1)}
-.buddy-say span{display:block;width:max-content;max-width:min(260px,62vw);padding:9px 12px;background:var(--panel);color:var(--ink);
-  border:1px solid var(--line);border-radius:12px;font:400 .8125rem/1.35 var(--sans);box-shadow:0 6px 18px rgba(0,0,0,.08)}
-.buddy-say::after{content:"";position:absolute;right:-6px;top:16px;width:10px;height:10px;background:var(--panel);
-  border-right:1px solid var(--line);border-top:1px solid var(--line);transform:rotate(45deg)}
-.buddy.saying .buddy-say{opacity:1;transform:none}
-.buddy.say-r .buddy-say{right:auto;left:84px;transform-origin:0 50%;transform:translateX(-6px) scale(.96)}
-.buddy.say-r.saying .buddy-say{transform:none}
-.buddy.say-r .buddy-say::after{right:auto;left:-6px;border:0;border-left:1px solid var(--line);border-bottom:1px solid var(--line)}
+/* speech bubble: its own fixed layer, placed by script beside, above or below him and always kept on screen */
+.buddy-say{position:fixed;left:0;top:0;z-index:31;pointer-events:none;opacity:0;transform:translate3d(var(--sx,0px),var(--sy,0px),0);transition:opacity 200ms ease}
+.buddy-say.on{opacity:1;animation:say-pop 300ms cubic-bezier(.23,1,.32,1)}
+@keyframes say-pop{from{scale:.94}to{scale:1}}
+.buddy-say span{display:block;width:max-content;max-width:min(calc(260px * var(--z,1)),calc(100vw - 32px));padding:9px 12px;background:var(--panel);color:var(--ink);
+  border:1px solid var(--line);border-radius:12px;font:400 calc(.8125rem * var(--z,1))/1.35 var(--sans);box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.buddy-say::after{content:"";position:absolute;width:10px;height:10px;background:var(--panel);transform:rotate(45deg);display:none}
+.buddy-say.l::after{display:block;right:-6px;top:var(--ay,16px);border-right:1px solid var(--line);border-top:1px solid var(--line)}
+.buddy-say.r::after{display:block;left:-6px;top:var(--ay,16px);border-left:1px solid var(--line);border-bottom:1px solid var(--line)}
+.buddy-say.u::after{display:block;bottom:-6px;left:var(--ax,20px);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.buddy-say.d::after{display:block;top:-6px;left:var(--ax,20px);border-left:1px solid var(--line);border-top:1px solid var(--line)}
+@media print{.buddy-say{display:none}}
 .buddy svg{width:calc(80px * var(--u));height:calc(112px * var(--u))}
-.buddy-say{right:calc(80px * var(--u) + 4px)}.buddy.say-r .buddy-say{left:calc(80px * var(--u) + 4px)}
-.buddy-say span{font-size:calc(.8125rem * var(--u));max-width:calc(260px * var(--u))}
-@media (max-width:640px){.buddy{--u:.7}.buddy-say::after{top:12px}}
+@media (max-width:640px){.buddy{--u:.7}}
 @media (prefers-reduced-motion:no-preference){
   .buddy.running .b-bob{animation:b-bob 300ms ease-in-out infinite}
   .buddy.running .b-leg-l{animation:b-run 300ms ease-in-out infinite}
@@ -849,13 +847,38 @@ body > :not(.buddy):not(script){zoom:var(--z,1)}
     var bs = 1, mode = 'settle', arrived = false, nextFidget = 0, lastHi = 0, lastMoveT = 0, settleT, checkT, leaveT, last = performance.now(), sayT, said = {};
     function S(){ return el.offsetWidth / 80; }
     function ext(e, k){ var s = S() * (k || 1); return { l:e.l * s, r:e.r * s, t:e.t * s, b:e.b * s }; }
-    /* the speech bubble goes on whichever side of him covers less text */
+    /* speech bubble: tries left, right, above and below him; picks the one that fits on screen and covers the
+       least text, and is always clamped inside the window so words are never cut off */
+    var sayBox = el.querySelector('.buddy-say'); document.body.appendChild(sayBox);
+    var side = 'l';
+    function bubbleAt(sd, bw, bh){
+      var k = bs * S(), w = 80 * k, h = 112 * k, top = el.classList.contains('gliding') ? -40 * k : 0;
+      if(sd === 'l') return { x: pos.x + 4 * k - 8 - bw, y: pos.y + 4 * k };
+      if(sd === 'r') return { x: pos.x + 76 * k + 8, y: pos.y + 4 * k };
+      if(sd === 'u') return { x: pos.x + w / 2 - bw / 2, y: pos.y + top - bh - 10 };
+      return { x: pos.x + w / 2 - bw / 2, y: pos.y + h + 10 };
+    }
+    function fits(o, bw, bh){ return o.x >= 8 && o.y >= 8 && o.x + bw <= innerWidth - 8 && o.y + bh <= innerHeight - 8; }
+    function chooseSide(){
+      var bw = sayBox.offsetWidth, bh = sayBox.offsetHeight, free = buildMap(), best = null, bc = Infinity;
+      ['l', 'r', 'u', 'd'].forEach(function(sd){ var o = bubbleAt(sd, bw, bh); if(!fits(o, bw, bh)) return; var c = free.cost(o.x, o.y, bw, bh); if(c < bc){ bc = c; best = sd; } });
+      side = best || (pos.y > innerHeight / 2 ? 'u' : 'd');
+    }
+    function placeBubble(){
+      if(!el.classList.contains('saying')) return;
+      var bw = sayBox.offsetWidth, bh = sayBox.offsetHeight, o = bubbleAt(side, bw, bh);
+      if(!fits(o, bw, bh)){ var alt = ['l', 'r', 'u', 'd'].filter(function(sd){ return fits(bubbleAt(sd, bw, bh), bw, bh); })[0]; if(alt){ side = alt; o = bubbleAt(side, bw, bh); } }
+      var x = Math.max(8, Math.min(innerWidth - bw - 8, o.x)), y = Math.max(8, Math.min(innerHeight - bh - 8, o.y)), k = bs * S();
+      sayBox.className = 'buddy-say on ' + side;
+      sayBox.style.setProperty('--sx', x.toFixed(1) + 'px'); sayBox.style.setProperty('--sy', y.toFixed(1) + 'px');
+      sayBox.style.setProperty('--ay', Math.max(10, Math.min(bh - 18, pos.y + 22 * k - y)).toFixed(1) + 'px');
+      sayBox.style.setProperty('--ax', Math.max(12, Math.min(bw - 22, pos.x + 40 * k - 5 - x)).toFixed(1) + 'px');
+    }
+    function hush(){ el.classList.remove('saying'); sayBox.classList.remove('on'); }
     function speak(t, ms){
       say.textContent = t;
-      var bub = el.querySelector('.buddy-say'), w = bub.offsetWidth, h = bub.offsetHeight, free = buildMap();
-      var y = pos.y + 2 * bs, L = free.cost(pos.x - 4 * bs - w, y, w, h), R = free.cost(pos.x + (el.offsetWidth + 4) * bs, y, w, h);
-      el.classList.toggle('say-r', R < L || (R === L && pos.x < innerWidth / 2));
-      el.classList.add('saying'); clearTimeout(sayT); sayT = setTimeout(function(){ el.classList.remove('saying'); }, ms || 3600);
+      chooseSide(); el.classList.add('saying'); placeBubble();
+      clearTimeout(sayT); sayT = setTimeout(hush, ms || 3600);
     }
     function pulse(c, ms){ el.classList.remove(c); void el.offsetWidth; el.classList.add(c); setTimeout(function(){ el.classList.remove(c); }, ms); }
     function progress(){ var m = document.documentElement.scrollHeight - innerHeight; return m > 0 ? Math.min(1, Math.max(0, scrollY / m)) : 0; }
@@ -967,7 +990,7 @@ body > :not(.buddy):not(script){zoom:var(--z,1)}
     }
     function tick(now){
       var dt = Math.max(0, Math.min(48, now - last)) / 1000; last = now;
-      if(mode === 'drag'){ flags({ gliding:false, rising:false, running:false, walking:false, landed:false, standing:false }); place(); requestAnimationFrame(tick); return; }
+      if(mode === 'drag'){ flags({ gliding:false, rising:false, running:false, walking:false, landed:false, standing:false }); place(); placeBubble(); requestAnimationFrame(tick); return; }
       if(mode === 'scroll'){ var e = edgeSpot(); tgt.x = e.x; tgt.y = e.y; }
       else if(spot){ tgt.x = spot.x; tgt.y = spot.y; bs += (spot.s - bs) * Math.min(1, dt * 6); }
       var dx = tgt.x - pos.x, dy = tgt.y - pos.y, d = Math.hypot(dx, dy);
@@ -998,13 +1021,13 @@ body > :not(.buddy):not(script){zoom:var(--z,1)}
       if(moving && Math.abs(dx) > 2) el.classList.toggle('dir-l', dx < 0);
       flags({ gliding: !standing && !rising && !moving, rising: rising, running: run, walking: walk, landed: standing, standing: standing });
       el.classList.toggle('face-l', pos.x + el.offsetWidth * bs / 2 > innerWidth * .5);
-      place();
+      place(); placeBubble();
       requestAnimationFrame(tick);
     }
     function onScroll(){
       if(mode === 'drag') return;
       if(still){ clearTimeout(settleT); settleT = setTimeout(function(){ settle(); pos.x = spot.x; pos.y = spot.y; bs = spot.s; place(); flags({ standing: spot.stand, landed: spot.stand, gliding: !spot.stand }); }, 160); return; }
-      if(mode !== 'scroll'){ pulse('hop', 380); el.classList.remove('saying'); }
+      if(mode !== 'scroll'){ pulse('hop', 380); hush(); }
       if(progress() < .9) el.classList.remove('hero');
       mode = 'scroll'; arrived = false; said.last = null; clearTimeout(checkT);
       clearTimeout(settleT); settleT = setTimeout(settle, 180);
