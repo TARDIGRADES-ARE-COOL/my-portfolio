@@ -190,6 +190,9 @@ body > :not(.buddy):not(.buddy-say):not(script){zoom:var(--z,1)}
 .feature-text .note{color:var(--ink);font-size:.9375rem}
 .feature-text a{display:inline-flex;align-items:center;gap:6px;min-height:44px;margin-top:8px;align-self:flex-start;font:400 .8125rem/1 var(--mono);color:var(--ink);text-underline-offset:.25em}
 .feature-text .tags{margin-top:12px}
+.feature.flip{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}.feature.flip .screen{order:2;background:#1b2436}.feature.flip .thumbs{background:#1b2436}
+.thumbs.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.feature-text .links{display:flex;flex-wrap:wrap;gap:4px 22px}
 .proj{border:1px solid var(--line);background:var(--panel);padding:24px;display:flex;flex-direction:column}
 .proj h4{margin:10px 0 0;font:400 1.375rem/1.2 var(--serif)}
 .proj p{margin-top:10px;color:var(--muted)}
@@ -217,8 +220,8 @@ body > :not(.buddy):not(.buddy-say):not(script){zoom:var(--z,1)}
   .hero{grid-template-columns:1fr;gap:40px;padding-top:16px}
   .about-grid{grid-template-columns:1fr;gap:24px}
   .jobs,.projects,.projects.two,.edu{grid-template-columns:1fr}
-  .feature{grid-template-columns:1fr}
-  .thumbs{grid-template-columns:repeat(5,minmax(56px,1fr))}
+  .feature,.feature.flip{grid-template-columns:1fr}.feature.flip .screen{order:0}
+  .thumbs{grid-template-columns:repeat(5,minmax(56px,1fr))}.thumbs.three{grid-template-columns:repeat(3,minmax(56px,1fr))}
   .sec{padding-block:88px 0}
 }
 @media (max-width:520px){
@@ -498,7 +501,7 @@ body > :not(.buddy):not(.buddy-say):not(script){zoom:var(--z,1)}
     <h2 id="proj-h" class="words" data-r><span class="w"><span style="--i:0">Things</span></span> <span class="w"><span style="--i:1">I’ve</span></span> <span class="w"><span style="--i:2">built.</span></span></h2>
     <h3 class="group mono" data-r>AI agents</h3>
     
-    <article class="feature" data-r>
+    <article class="feature" id="lanterns-feature" data-r>
       <figure class="screen" aria-label="Constructs designed by the Lanterns agent">
         <div class="stage">
           <video class="shot on" data-k="forge" src="assets/lanterns-forge.mp4" poster="assets/lanterns-forge-poster.webp" muted loop playsinline preload="metadata" width="960" height="720" aria-label="Lanterns forging a four-tower fortress out of green light"></video>
@@ -518,15 +521,27 @@ body > :not(.buddy):not(.buddy-say):not(script){zoom:var(--z,1)}
         <a href="https://github.com/TARDIGRADES-ARE-COOL/Lanterns" target="_blank" rel="noopener">GitHub <span class="arr" aria-hidden="true">→</span></a>
       </div>
     </article>
+    
+    <article class="feature flip" id="hope-feature" data-r>
+      <figure class="screen" aria-label="Screens from the live Hope Today site">
+        <div class="stage">
+          <img class="shot on" data-k="puzzle" src="assets/hope-puzzle.webp" alt="Today’s word puzzle: the answer, HEALTH, is hidden in the clue sentence" width="1200" height="900" loading="lazy" decoding="async"><img class="shot" data-k="howto" src="assets/hope-howto.webp" alt="The how-to-play card shown on a first visit" width="1200" height="900" loading="lazy" decoding="async"><img class="shot" data-k="solved" src="assets/hope-solved.webp" alt="Solved: the sun comes up and today’s good news unlocks" width="1200" height="900" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="thumbs three" role="group" aria-label="Choose a screen">
+          <button class="thumb" type="button" data-k="puzzle" aria-pressed="true"><img src="assets/hope-puzzle-thumb.webp" alt="" width="240" height="180" loading="lazy" decoding="async"><span>Puzzle</span></button><button class="thumb" type="button" data-k="howto" aria-pressed="false"><img src="assets/hope-howto-thumb.webp" alt="" width="240" height="180" loading="lazy" decoding="async"><span>How to play</span></button><button class="thumb" type="button" data-k="solved" aria-pressed="false"><img src="assets/hope-solved-thumb.webp" alt="" width="240" height="180" loading="lazy" decoding="async"><span>Solved</span></button>
+        </figcaption>
+      </figure>
+      <div class="feature-text">
+        <p class="label mono">AI agent · live</p>
+        <h4>Hope Today</h4>
+        <p>A daily good-news puzzle, live every morning. Solve one word puzzle and it unlocks a short deck of real good news. The real point was the agent behind it: each morning it scans the week’s news, works out where the good news is, keeps only the stories that genuinely hold up, then writes the puzzle and tests it on a second model before anything goes online.</p>
+        <p class="note">Built from scratch, with my own agent loop and tools and no frameworks, to learn how agents really work. A scheduled job runs it at 6am every day.</p>
+        <ul class="tags mono"><li>Python</li><li>OpenAI API</li><li>GitHub Actions</li></ul>
+        <div class="links"><a href="https://tardigrades-are-cool.github.io/hope-today/" target="_blank" rel="noopener">Play today’s puzzle <span class="arr" aria-hidden="true">→</span></a><a href="https://github.com/TARDIGRADES-ARE-COOL/hope-today" target="_blank" rel="noopener">GitHub <span class="arr" aria-hidden="true">→</span></a></div>
+      </div>
+    </article>
     <ul class="projects two">
       <li class="proj settle" data-r style="--d:0ms">
-        <p class="label mono">AI agent · in progress</p>
-        <h4>Hope Today</h4>
-        <p>An agent that asks what would give you hope, searches today’s news for real good news on it, and turns the best stories into a short slide deck. Built from scratch, with its own tool servers, to learn how agents really work.</p>
-        <ul class="tags mono"><li>Python</li><li>MCP</li><li>OpenAI API</li></ul>
-        <a href="https://github.com/TARDIGRADES-ARE-COOL/hope-today" target="_blank" rel="noopener">GitHub <span class="arr" aria-hidden="true">→</span></a>
-      </li>
-      <li class="proj settle" data-r style="--d:80ms">
         <p class="label mono">AI agent</p>
         <h4>Pokedex Agent</h4>
         <p>My first agent, from the Hugging Face Agents course. Ask about any Pokémon and it looks up the real stats by writing and running its own tool calls.</p>
@@ -756,7 +771,12 @@ body > :not(.buddy):not(.buddy-say):not(script){zoom:var(--z,1)}
   }
 
   /* featured project: thumbnails switch the screen; the clip plays only while on screen */
-  var vid = document.querySelector('.feature video'), shots = document.querySelectorAll('.shot'), thumbs = document.querySelectorAll('.thumb'), play = document.querySelector('.play');
+  var lf = document.getElementById('lanterns-feature');
+  var vid = lf.querySelector('video'), shots = lf.querySelectorAll('.shot'), thumbs = lf.querySelectorAll('.thumb'), play = lf.querySelector('.play');
+  /* Hope Today: thumbnails switch the screen */
+  var hf = document.getElementById('hope-feature');
+  if(hf){ var hs = hf.querySelectorAll('.shot'), ht = hf.querySelectorAll('.thumb');
+    ht.forEach(function(t){ t.addEventListener('click', function(){ ht.forEach(function(x){ x.setAttribute('aria-pressed', x === t); }); hs.forEach(function(s){ s.classList.toggle('on', s.dataset.k === t.dataset.k); }); }); }); }
   var showing = 'forge', inView = false, blocked = false;
   function sync(){
     var want = showing === 'forge' && inView && !reduce;
@@ -823,7 +843,7 @@ body > :not(.buddy):not(.buddy-say):not(script){zoom:var(--z,1)}
       'WS Audiology': 'Firmware for a medical device, with tests that run themselves.',
       'Turck Banner': 'My first engineering job: testing industrial sensors.',
       'Lanterns': 'Lanterns turns an idea into an animated 3D model. My favourite!',
-      'Hope Today': 'This one finds real good news for you. Still building it!',
+      'Hope Today': 'It’s live! My agent makes a new good-news puzzle every morning.',
       'Pokedex Agent': 'My very first agent.',
       'SentineLLM': 'It caught 94% of attacks on AI chatbots in testing.',
       'Hybrid RAG': 'Built for a national AI competition, under tight time limits.',
